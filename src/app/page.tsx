@@ -4,6 +4,7 @@ import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 import Projects from "@/sections/Projects";
 import Clients from "@/sections/Projects"
+import WorkExperience from "@/sections/Experience";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <About />
       <Projects />
       <Clients />
+      <WorkExperience />
     </main>
   );
 }

@@ -3,17 +3,17 @@
 import { useState, useEffect } from "react";
 
 const GlowingBall = () => {
-  const [ballX, setBallX] = useState(0);
-  const [ballY, setBallY] = useState(0);
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
+  const [ballX, setBallX] = useState(0);
+  const [ballY, setBallY] = useState(0);
 
+  // Listen to mouse movement
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMouseX(e.clientX);
       setMouseY(e.clientY);
     };
-
     document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
@@ -21,35 +21,34 @@ const GlowingBall = () => {
     };
   }, []);
 
+  // Animate ball to follow the cursor
   useEffect(() => {
     const animateBall = () => {
-      const dx = mouseX - ballX;
-      const dy = mouseY - ballY;
+      let dx = mouseX - ballX;
+      let dy = mouseY - ballY;
 
-      setBallX(ballX + dx * 0.1);
-      setBallY(ballY + dy * 0.1);
+      setBallX((prevBallX) => prevBallX + dx * 0.1);
+      setBallY((prevBallY) => prevBallY + dy * 0.1);
 
       requestAnimationFrame(animateBall);
     };
 
     animateBall();
-  }, [ballX, ballY, mouseX, mouseY]);
+  }, [mouseX, mouseY, ballX, ballY]);
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        left: `${ballX}px`,
-        top: `${ballY}px`,
-        width: "20px",
-        height: "20px",
-        borderRadius: "50%",
-        backgroundColor: "#ff4500",
-        pointerEvents: "none",
-        boxShadow: "0 0 20px 5px rgba(255, 69, 0, 0.7)",
-        transition: "all 0.3s ease",
-      }}
-    />
+    <div className="w-screen h-screen bg-black overflow-hidden">
+      <div
+        id="ball"
+        className="w-5 h-5 bg-orange-600 rounded-full fixed pointer-events-none shadow-[0_0_20px_5px_rgba(255,69,0,0.7)]"
+        style={{
+          left: `${ballX}px`,
+          top: `${ballY}px`,
+          transform: "translate(-50%, -50%)",
+          transition: "all 0.3s ease",
+        }}
+      />
+    </div>
   );
 };
 

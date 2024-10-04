@@ -40,7 +40,7 @@ const GlowingBall = () => {
     <div className="w-screen h-screen bg-black overflow-hidden">
       <div
         id="ball"
-        className="w-5 h-5 bg-orange-600 rounded-full fixed pointer-events-none shadow-[0_0_20px_5px_rgba(255,69,0,0.7)]"
+        className="w-3 h-3 bg-orange-600 rounded-full fixed pointer-events-none shadow-[0_0_20px_5px_rgba(255,69,0,0.7)]"
         style={{
           left: `${ballX}px`,
           top: `${ballY}px`,

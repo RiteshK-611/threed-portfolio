@@ -27,8 +27,8 @@ const GlowingBall = () => {
       let dx = mouseX - ballX;
       let dy = mouseY - ballY;
 
-      setBallX((prevBallX) => prevBallX + dx * 0.1);
-      setBallY((prevBallY) => prevBallY + dy * 0.1);
+      setBallX((prevBallX) => prevBallX + dx * 0.01);
+      setBallY((prevBallY) => prevBallY + dy * 0.01);
 
       requestAnimationFrame(animateBall);
     };
@@ -37,15 +37,15 @@ const GlowingBall = () => {
   }, [mouseX, mouseY, ballX, ballY]);
 
   return (
-    <div className="w-screen h-screen bg-black overflow-hidden">
+    <div className="absolute inset-0">
       <div
         id="ball"
         className="w-3 h-3 bg-orange-600 rounded-full fixed pointer-events-none shadow-[0_0_20px_5px_rgba(255,69,0,0.7)]"
         style={{
+          position: "absolute",
           left: `${ballX}px`,
           top: `${ballY}px`,
-          transform: "translate(-50%, -50%)",
-          transition: "all 0.3s ease",
+          transform: "translate(-50%, -50%)"
         }}
       />
     </div>

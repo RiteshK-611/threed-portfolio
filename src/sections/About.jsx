@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Globe from "react-globe.gl";
 import Button from "@/components/Button.jsx";
+import dynamic from 'next/dynamic';
+
+const Globe = dynamic(() => import('react-globe.gl'), {
+  ssr: false,
+});
 
 const About = () => {
   const [hasCopied, setHasCopied] = useState(false);

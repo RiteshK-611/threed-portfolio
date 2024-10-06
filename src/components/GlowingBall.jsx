@@ -39,8 +39,8 @@ const GlowingBall = () => {
     <div
       ref={ballRef}
       style={{
-        width: "12px",
-        height: "12px",
+        width: "10px",
+        height: "10px",
         borderRadius: "50%",
         backgroundColor: "#ff4500",
         position: "fixed",

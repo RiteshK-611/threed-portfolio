@@ -2,9 +2,9 @@ import { Dock, DockIcon } from "@/components/ui/dock";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { navLinks } from "@/contants";
+import { navLinks } from "@/constants/index.js";
 
-export default function Navbar() {
+export default function Navbar1() {
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-10 flex origin-bottom h-full max-h-14">
       <Dock

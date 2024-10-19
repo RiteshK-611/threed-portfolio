@@ -1,4 +1,5 @@
 import Navbar from "@/sections/Navbar";
+import Navbar1 from "@/sections/Navbar1";
 import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 import Projects from "@/sections/Projects";
@@ -13,6 +14,7 @@ export default function App() {
     <main>
       <GlowingBall />
       <Navbar />
+      <Navbar1 />
       <Hero />
       <About />
       <Projects />

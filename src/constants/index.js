@@ -3,21 +3,25 @@ export const navLinks = [
     id: 1,
     name: "Home",
     href: "#home",
+    icon: "/assets/home.svg",
   },
   {
     id: 2,
     name: "About",
     href: "#about",
+    icon: "/assets/about.svg",
   },
   {
     id: 3,
     name: "Work",
     href: "#work",
+    icon: "/assets/work.svg",
   },
   {
     id: 4,
     name: "Contact",
     href: "#contact",
+    icon: "/assets/contact.svg",
   },
 ];
 

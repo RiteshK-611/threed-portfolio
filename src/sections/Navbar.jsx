@@ -1,60 +1,25 @@
-"use client";
+import { Dock, DockIcon } from "@/components/Dock";
+import Link from "next/link";
+import { navLinks } from "@/constants/index.js";
 
-import { useState } from "react";
-import { navLinks } from "@/constants";
-
-const NavItems = ({ onClick = () => {} }) => (
-  <ul className="nav-ul">
-    {navLinks.map((item) => (
-      <li key={item.id} className="nav-li">
-        <a href={item.href} className="nav-li_a" onClick={onClick}>
-          {item.name}
-        </a>
-      </li>
-    ))}
-  </ul>
-);
-
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
-
+export default function Navbar() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center py-5 mx-auto c-space">
-          <a
-            href="/"
-            className="text-neutral-400 font-bold text-xl hover:text-white transition-colors">
-            Ritesh
-          </a>
-
-          <button
-            onClick={toggleMenu}
-            className="text-neutral-400 hover:text-white focus:outline-none sm:hidden flex"
-            aria-label="Toggle menu">
-            <img
-              src={isOpen ? "assets/close.svg" : "assets/menu.svg"}
-              alt="toggle"
-              className="w-6 h-6"
-            />
-          </button>
-
-          <nav className="sm:flex hidden">
-            <NavItems />
-          </nav>
-        </div>
-      </div>
-
-      <div className={`nav-sidebar ${isOpen ? "max-h-screen" : "max-h-0"}`}>
-        <nav className="p-5">
-          <NavItems onClick={closeMenu} />
-        </nav>
-      </div>
-    </header>
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-10 flex origin-bottom h-full max-h-14">
+      <Dock
+        magnification={60}
+        distance={140}
+        className="z-50 pointer-events-auto relative mx-auto flex min-h-full h-full items-center px-1 bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] "
+      >
+        {navLinks.map(({ name, href, icon }) => (
+          <DockIcon key={name} magnification={60} distance={140} title={name}>
+            <Link
+              href={href}              
+            >
+              <img src={icon} className="size-5 text-white" />
+            </Link>
+          </DockIcon>
+        ))}
+      </Dock>
+    </div>
   );
-};
-
-export default Navbar;
+}

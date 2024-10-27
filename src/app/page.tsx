@@ -7,6 +7,8 @@ import WorkExperience from "@/sections/Experience";
 import Contact from "@/sections/Contact";
 import Footer from "@/sections/Footer";
 import GlowingBall from "@/components/GlowingBall";
+import Skills from "@/sections/Skills";
+import RotatingCircle from "@/components/RotatingCircle";
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
       <Navbar />
       <Hero />
       <About />
+      <Skills />
+      {/* <RotatingCircle /> */}
       <Projects />
       <Clients />
       <WorkExperience />

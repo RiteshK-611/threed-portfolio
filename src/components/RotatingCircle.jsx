@@ -100,7 +100,7 @@ const RotatingCircle = () => {
   return (
     <div
       ref={circleRef}
-      className="relative w-full h-full flex justify-center items-center -z-10">
+      className="relative w-full h-full flex justify-center items-center">
       <div className="absolute w-full h-full flex justify-center items-center bottom-[50%]">
         {iconList.map((url, index) => (
           <motion.div

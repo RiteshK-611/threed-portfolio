@@ -101,7 +101,7 @@ const RotatingCircle = () => {
     <div
       ref={circleRef}
       className="relative w-full h-full flex justify-center items-center">
-      <div className="absolute w-full h-full flex justify-center items-center bottom-[50%]">
+      <div className="absolute w-full h-full flex justify-center items-center bottom-1/2">
         {iconList.map((url, index) => (
           <motion.div
             key={index}
@@ -133,7 +133,7 @@ const RotatingCircle = () => {
             }}>
             <Image
               className="absolute blur-sm opacity-30 custom-transform-backdrop-2 group-hover:custom-transform-hover"
-              src={`/assets${url[0]}`}
+              src={`/assets/skills${url[0]}`}
               width={40}
               height={40}
               alt={url[1]}
@@ -142,7 +142,7 @@ const RotatingCircle = () => {
             />
             <Image
               className="relative transition-transform ease-in-out duration-300 group-hover:scale-105"
-              src={`/assets${url[0]}`}
+              src={`/assets/skills${url[0]}`}
               width={40}
               height={40}
               alt={url[1]}

@@ -5,7 +5,6 @@ import Projects from "@/sections/Projects";
 import Clients from "@/sections/Clients";
 import WorkExperience from "@/sections/Experience";
 import Contact from "@/sections/Contact";
-import Footer from "@/sections/Footer";
 import GlowingBall from "@/components/GlowingBall";
 import Skills from "@/sections/Skills";
 import RotatingCircle from "@/components/RotatingCircle";
@@ -23,7 +22,6 @@ export default function App() {
       <Clients />
       <WorkExperience />
       <Contact />
-      <Footer />
     </main>
   );
 }

@@ -32,6 +32,11 @@ const config: Config = {
       backgroundImage: {
         terminal: "url('/assets/terminal.png')",
       },
+      rotate: {
+        '-15': '-15deg',
+        '5': '5deg',
+        '25': '25deg'
+      }
     },
   },
   plugins: [],

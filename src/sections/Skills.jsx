@@ -9,7 +9,7 @@ const Skills = () => {
     <section className="c-space my-20 h-svh overflow-hidden relative">
       <h3 className="head-text">My Skills</h3>
 
-      <div className="relative top-6">
+      <div className="relative top-16">
         <RotatingCircle />
       </div>
 
@@ -20,7 +20,7 @@ const Skills = () => {
         </h2>
       </BackgroundLines>
 
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black-100"></div>
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black-100 md:block hidden"></div>
     </section>
   );
 };

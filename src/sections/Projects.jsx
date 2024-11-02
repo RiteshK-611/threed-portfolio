@@ -112,37 +112,10 @@ const Projects = () => {
             </button>
           </div>
         </div>
-
-        {/* <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
-            <Canvas>
-                        <ambientLight intensity={Math.PI} />
-                        <directionalLight position={[10, 10, 5]} />
-                        <Center>
-                            <Suspense fallback={<CanvasLoader />}>
-                                <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                                    <DemoComputer texture={currentProject.texture} />
-                                </group>
-                            </Suspense>
-                        </Center>
-                        <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false} />
-                    </Canvas>
-          </div> */}
-        {/* <CardContainer className="inter-var">
-            <Safari
-              className="size-full"
-              src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-          </CardContainer> */}
-        {/* <div className="border border-black-300 bg-black-200 rounded-lg h-0">
-        </div> */}
-        {/* <WavyImage
-          className="size-full"
-          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        /> */}
-        <div className="flex items-center justify-center border">
+        <div className="flex items-center justify-center">
           <Safari
-            className="size-11/12"
-            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            className="size-full hover:shadow-2xl hover:shadow-emerald-500/[0.2]"
+            src={currentProject.img}
           />
         </div>
       </div>

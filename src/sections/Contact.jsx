@@ -138,7 +138,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="mt-8 md:mt-24 basis-1/2">
+      <div className="mt-20 md:mt-24 basis-1/2">
         <GlassContainer />
       </div>
     </section>

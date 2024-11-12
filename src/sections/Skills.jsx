@@ -13,12 +13,22 @@ const Skills = () => {
         <RotatingCircle />
       </div>
 
-      <BackgroundLines>
+      <BackgroundLines className="bg-transparent">
         <h2 className="text-2xl sm:text-3xl md:text-4xl bg-clip-text text-transparent text-center bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 font-semibold absolute top-1/2 left-1/2 -translate-x-1/2">
           Always pushing the boundries <br />
           to learn new technologies.
         </h2>
       </BackgroundLines>
+
+      <div
+        style={{ clipPath: "circle(30rem at bottom center)" }}
+        className="bg-gradient-to-b from-indigo-500 to-purple-500 opacity-10 h-64 w-full"
+      ></div>
+
+      <div
+        style={{ clipPath: "circle(8rem at bottom center)" }}
+        className="bg-gradient-to-b from-purple-500 to-pink-500 opacity-5 h-64 w-full"
+      ></div>
 
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black-100 md:block hidden"></div>
     </section>

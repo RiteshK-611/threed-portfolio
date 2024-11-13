@@ -63,8 +63,7 @@ export const clientReviews = [
 export const myProjects = [
   {
     title: "ChatPDF",
-    desc:
-      "An innovative application that enables you to interact with your PDFs. It leverages Retrieval Augmented Generation (RAG) powered by Gemini AI to generate answers directly from the PDF content. Manage multiple PDF chats, clear conversations, and start fresh whenever needed.",
+    desc: "An innovative application that enables you to interact with your PDFs. It leverages Retrieval Augmented Generation (RAG) powered by Gemini AI to generate answers directly from the PDF content. Manage multiple PDF chats, clear conversations, and start fresh whenever needed.",
     subdesc:
       "Built as a unique Software-as-a-Service app with Next.js 14, Tailwind CSS, TypeScript, Framer Motion and Convex, Podcastr is designed for optimal performance and scalability.",
     href: "https://www.youtube.com/watch?v=zfAb95tJvZQ",
@@ -80,30 +79,54 @@ export const myProjects = [
     tags: [
       {
         id: 1,
-        name: "React.js",
-        path: "/assets/react.svg",
+        name: "ReactJS",
+        path: "/react.svg",
       },
       {
         id: 2,
-        name: "TailwindCSS",
-        path: "assets/tailwindcss.png",
+        name: "NextJS",
+        path: "/next.svg",
       },
       {
         id: 3,
-        name: "TypeScript",
-        path: "/assets/typescript.png",
+        name: "Typescript",
+        path: "/typescript.svg",
       },
       {
         id: 4,
-        name: "Framer Motion",
-        path: "/assets/framer.png",
+        name: "TailwindCSS",
+        path: "/tail.svg",
+      },
+      {
+        id: 5,
+        name: "GeminiAI",
+        path: "/googlegemini.svg",
+      },
+      {
+        id: 6,
+        name: "PgSQL",
+        path: "/postgresql.svg",
+      },
+      {
+        id: 7,
+        name: "ShadcnUI",
+        path: "/shadcnui.svg",
+      },
+      {
+        id: 8,
+        name: "Drizzle",
+        path: "/drizzle.svg",
+      },
+      {
+        id: 9,
+        name: "Clerk",
+        path: "/clerk.svg",
       },
     ],
   },
   {
-     title: "InAR",
-    desc:
-      "Revolutionize your e-commerce experience with InAR, an Augmented Reality (AR) powered platform. Visualize furniture or products directly within your environment using WebAR technology. Gain a clear understanding of how these items would fit in your space before making a purchase.",
+    title: "InAR",
+    desc: "Revolutionize your e-commerce experience with InAR, an Augmented Reality (AR) powered platform. Visualize furniture or products directly within your environment using WebAR technology. Gain a clear understanding of how these items would fit in your space before making a purchase.",
     subdesc:
       "With LiveDoc, users can experience the future of collaboration, where multiple contributors work together in real time without any lag, by using Next.js and Liveblocks newest features.",
     href: "https://www.youtube.com/watch?v=y5vE8y_f_OM",
@@ -141,8 +164,7 @@ export const myProjects = [
   },
   {
     title: "Amazon Clone",
-    desc:
-      "A full-fledged e-commerce application replicating the core functionalities of Amazon. It includes essential features like adding items to your cart, logging in/signing up, processing payments through the cart, and more. Enhanced user experience is achieved through features like cart pop-ups and animations.",
+    desc: "A full-fledged e-commerce application replicating the core functionalities of Amazon. It includes essential features like adding items to your cart, logging in/signing up, processing payments through the cart, and more. Enhanced user experience is achieved through features like cart pop-ups and animations.",
     subdesc:
       "With a focus on efficiency, CarePulse integrantes complex forms and SMS notifications, by using Next.js, Appwrite, Twillio and Sentry that enhance operational workflows.",
     href: "https://www.youtube.com/watch?v=lEflo_sc82g",
@@ -182,8 +204,7 @@ export const myProjects = [
   },
   {
     title: "City Weather",
-    desc:
-      "Stay informed about weather conditions with City Weather, a Progressive Web Application (PWA). This application retrieves weather data for your chosen city using the OpenWeather API. Access details like climate, temperature, wind speed, visibility, and air quality, all within a user-friendly interface.",
+    desc: "Stay informed about weather conditions with City Weather, a Progressive Web Application (PWA). This application retrieves weather data for your chosen city using the OpenWeather API. Access details like climate, temperature, wind speed, visibility, and air quality, all within a user-friendly interface.",
     subdesc:
       "Built with Next.js 14 Appwrite, Dwolla and Plaid, Horizon ensures a smooth and secure banking experience, tailored to meet the needs of modern consumers.",
     href: "https://www.youtube.com/watch?v=PuOVqP_cjkE",
@@ -221,8 +242,7 @@ export const myProjects = [
   },
   {
     title: "Hulu UI Clone",
-    desc:
-      "A meticulously crafted user interface (UI) replicating the landing page of the Hulu app. This project leverages TheMovieDatabase (TMDB) API to fetch movie data, enabling the display of movies from various genres. Upon hovering over a movie card, a concise overview is presented.",
+    desc: "A meticulously crafted user interface (UI) replicating the landing page of the Hulu app. This project leverages TheMovieDatabase (TMDB) API to fetch movie data, enabling the display of movies from various genres. Upon hovering over a movie card, a concise overview is presented.",
     subdesc:
       "Built with Next.js 14, Cloudinary AI, Clerk, and Stripe, Imaginify combines cutting-edge technology with a user-centric approach. It can be turned into a side income or even a full-fledged business.",
     href: "https://www.youtube.com/watch?v=Ahwoks_dawU",

@@ -1,79 +1,3 @@
-// "use client";
-
-// import React, { useEffect, useRef, useState } from "react";
-// import Image from "next/image";
-// import { iconList } from "@/data";
-
-// const RotatingCircle = () => {
-//   const [isInView, setIsInView] = useState(false);
-//   const circleRef = useRef(null);
-
-//   useEffect(() => {
-//     const observer = new IntersectionObserver(
-//       ([entry]) => {
-//         if (entry.isIntersecting) {
-//           setIsInView(true);
-//           observer.unobserve(entry.target);
-//         }
-//       },
-//       { threshold: 0.5 }
-//     );
-
-//     if (circleRef.current) {
-//       observer.observe(circleRef.current);
-//     }
-
-//     return () => {
-//       if (circleRef.current) {
-//         observer.unobserve(circleRef.current);
-//       }
-//     };
-//   }, []);
-
-//   return (
-//     <div
-//       ref={circleRef}
-//       className="absolute inset-0 w-full h-full flex justify-center items-center -z-10">
-//       <div className="absolute w-full h-full flex justify-center items-center top-[-35%]">
-//         {iconList.map((url, index) => (
-//           <div
-//             key={index}
-//             className="absolute w-[110px] h-[110px] flex items-center justify-center group"
-//             style={{
-//               transformOrigin: "center 650px",
-//               transform: `rotate(calc(360deg / ${iconList.length} * ${index}))`,
-//               opacity: isInView ? 1 : 0,
-//               transition: `opacity 0.5s ease ${
-//                 index * 0.1
-//               }s, transform 1s ease ${index * 0.1}s`,
-//               animation: isInView
-//                 ? `rotate 30s linear infinite ${index * -1.25}s`
-//                 : "none",
-//               willChange: "transform"
-//             }}>
-//             <Image
-//               className="absolute blur-sm opacity-30 custom-transform-backdrop-2 group-hover:custom-transform-hover"
-//               src={`/assets/svgs${url[0]}`}
-//               width={40}
-//               height={40}
-//               alt={url[1]}
-//             />
-//             <Image
-//               className="relative transition-transform ease-in-out duration-300 group-hover:scale-105"
-//               src={`/assets/svgs${url[0]}`}
-//               width={40}
-//               height={40}
-//               alt={url[1]}
-//             />
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default RotatingCircle;
-
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
@@ -134,7 +58,7 @@ const RotatingCircle = () => {
             }}
           >
             <Image
-              className="relative transition-transform ease-in-out duration-300 group-hover:scale-105"
+              className="relative transition-transform ease-in-out duration-300 rounded-lg"
               src={`/assets/skills${url[0]}`}
               width={40}
               height={40}

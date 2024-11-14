@@ -2,21 +2,25 @@
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Center, OrbitControls } from "@react-three/drei";
 
 import { myProjects } from "../constants/index.js";
 import CanvasLoader from "../components/Loading.jsx";
 import DemoComputer from "../components/DemoComputer.jsx";
-import Safari from "@/components/Safari.jsx";
-import WavyImage from "@/components/WavyImage.jsx";
 import { CardContainer, CardBody } from "@/components/3dCard.tsx";
+import AvatarCircles from "@/components/AvatarCircles.jsx"
+import GlowingBall from "@/components/GlowingBall.jsx";
 
 const projectCount = myProjects.length;
 
 const Projects = () => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseEnter = () => setIsHovering(true);
+  const handleMouseLeave = () => setIsHovering(false);
 
   const handleNavigation = (direction) => {
     setSelectedProjectIndex((prevIndex) => {
@@ -38,6 +42,10 @@ const Projects = () => {
 
   const currentProject = myProjects[selectedProjectIndex];
 
+  useEffect(() => {
+    <GlowingBall isHovering={isHovering} />
+  }, [isHovering])
+
   return (
     <section className="c-space my-20">
       <p className="head-text">My Selected Work</p>
@@ -52,33 +60,25 @@ const Projects = () => {
             />
           </div>
 
-          {/* <div
-              className="p-3 backdrop-filter backdrop-blur-3xl w-fit rounded-lg"
-              style={currentProject.logoStyle}
-            >
-              <img
-                className="w-10 h-10 shadow-sm"
-                src={currentProject.logo}
-                alt="logo"
-              />
-            </div> */}
-
           <div className="flex flex-col gap-5 text-white-600 my-5">
             <p className="text-white text-2xl font-semibold animatedText">
               {currentProject.title}
             </p>
 
             <p className="animatedText">{currentProject.desc}</p>
-            <p className="animatedText">{currentProject.subdesc}</p>
+            <p className="animatedText lg:hidden xl:block">
+              {currentProject.subdesc}
+            </p>
           </div>
 
           <div className="flex items-center justify-between flex-wrap gap-5">
             <div className="flex items-center gap-3">
-              {currentProject.tags.map((tag, index) => (
+              {/* {currentProject.tags.map((tag, index) => (
                 <div key={index} className="tech-logo">
                   <img src={tag.path} alt={tag.name} />
                 </div>
-              ))}
+              ))} */}
+              <AvatarCircles avatarUrls={currentProject.tags} />
             </div>
 
             <a
@@ -112,11 +112,18 @@ const Projects = () => {
             </button>
           </div>
         </div>
-        <div className="flex items-center justify-center">
-          <Safari
-            className="size-full hover:shadow-2xl hover:shadow-emerald-500/[0.2]"
-            src={currentProject.img}
-          />
+        <div className="group relative flex items-center justify-center">
+          {/* Background gradient animation container */}
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-pink-500 via-green-500 to-blue-500 opacity-0 blur-xl transition-all duration-500 md:group-hover:opacity-10 animate-gradient-xy" />
+
+          {/* Content container with white background */}
+          <div
+            className="relative flex items-center justify-center rounded-lg bg-white/5 ring-1 md:p-4"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <img className="rounded-lg" src={currentProject.img} />
+          </div>
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ import { Suspense, useState, useEffect, useRef } from "react";
 import { myProjects } from "../constants/index.js";
 import AvatarCircles from "@/components/AvatarCircles.jsx";
 import GlowingBall from "@/components/GlowingBall.jsx";
-import LiquidDistortion from "@/components/LiquidDistortion.jsx";
+import LiquidDistortion from "@/components/LiquidDistortion.tsx";
 
 const projectCount = myProjects.length;
 
@@ -30,32 +30,112 @@ const Projects = () => {
   //   });
   // };
 
+  // const handleNavigation = (direction) => {
+  //   const nextIndex =
+  //     direction === "previous"
+  //       ? selectedProjectIndex === 0
+  //         ? projectCount - 1
+  //         : selectedProjectIndex - 1
+  //       : selectedProjectIndex === projectCount - 1
+  //       ? 0
+  //       : selectedProjectIndex + 1;
+
+  //   setNextProjectIndex(nextIndex);
+  //   setIsTransitioning(true);
+  // };
+
+  // useGSAP(() => {
+  //   gsap.fromTo(
+  //     `.animatedText`,
+  //     { opacity: 0 },
+  //     { opacity: 1, duration: 1, stagger: 0.2, ease: "power2.inOut" }
+  //   );
+  // }, [selectedProjectIndex]);
+
+  // useEffect(() => {
+  //   if (isTransitioning) {
+  //     const timer = setTimeout(() => {
+  //       setSelectedProjectIndex(nextProjectIndex);
+  //       setIsTransitioning(false);
+  //     }, 1000);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isTransitioning, nextProjectIndex]);
+
+  // const handleNavigation = (direction) => {
+  //   if (isTransitioning) return; // Prevent multiple transitions
+
+  //   const nextIndex =
+  //     direction === "previous"
+  //       ? selectedProjectIndex === 0
+  //         ? projectCount - 1
+  //         : selectedProjectIndex - 1
+  //       : selectedProjectIndex === projectCount - 1
+  //       ? 0
+  //       : selectedProjectIndex + 1;
+
+  //   setNextProjectIndex(nextIndex);
+  //   setIsTransitioning(true);
+
+  //   // Fade out current text
+  //   gsap.to(".animatedText", {
+  //     opacity: 0,
+  //     duration: 0.5,
+  //     stagger: 0.1,
+  //     onComplete: () => {
+  //       setSelectedProjectIndex(nextIndex);
+  //       // Fade in new text after content update
+  //       gsap.fromTo(
+  //         ".animatedText",
+  //         { opacity: 0 },
+  //         {
+  //           opacity: 1,
+  //           duration: 0.5,
+  //           stagger: 0.1,
+  //           delay: 0.5, // Give time for the distortion effect
+  //           onComplete: () => {
+  //             setIsTransitioning(false);
+  //           },
+  //         }
+  //       );
+  //     },
+  //   });
+  // };
+
   const handleNavigation = (direction) => {
+    if (isTransitioning) return;
+
     const nextIndex = direction === 'previous'
       ? selectedProjectIndex === 0 ? projectCount - 1 : selectedProjectIndex - 1
       : selectedProjectIndex === projectCount - 1 ? 0 : selectedProjectIndex + 1;
     
     setNextProjectIndex(nextIndex);
     setIsTransitioning(true);
-  };
 
-  useGSAP(() => {
-    gsap.fromTo(
-      `.animatedText`,
-      { opacity: 0 },
-      { opacity: 1, duration: 1, stagger: 0.2, ease: "power2.inOut" }
-    );
-  }, [selectedProjectIndex]);
-
-  useEffect(() => {
-    if (isTransitioning) {
-      const timer = setTimeout(() => {
-        setSelectedProjectIndex(nextProjectIndex);
+    gsap.timeline()
+      .to('.animatedText', {
+        opacity: 0,
+        duration: 0.3,
+        stagger: 0.1,
+        ease: 'power2.inOut'
+      })
+      .call(() => {
+        setSelectedProjectIndex(nextIndex);
+      })
+      .fromTo('.animatedText',
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.3,
+          stagger: 0.1,
+          ease: 'power2.inOut',
+          delay: 0.3
+        }
+      )
+      .call(() => {
         setIsTransitioning(false);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [isTransitioning, nextProjectIndex]);
+      });
+  };
 
   const currentProject = myProjects[selectedProjectIndex];
   const nextProject = myProjects[nextProjectIndex];
@@ -139,11 +219,11 @@ const Projects = () => {
           >
           <img className="rounded-lg" src={currentProject.img} />
         </div> */}
-        <LiquidDistortion
-          currentImage={currentProject.img}
-          nextImage={nextProject.img}
-          isTransitioning={isTransitioning}
-        />
+          <LiquidDistortion
+            currentImage={currentProject.img}
+            nextImage={nextProject.img}
+            isTransitioning={isTransitioning}
+          />
         </div>
       </div>
     </section>

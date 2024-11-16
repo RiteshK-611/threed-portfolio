@@ -12,7 +12,7 @@ import RotatingCircle from "@/components/RotatingCircle";
 export default function App() {
   return (
     <main>
-      <GlowingBall />
+      {/* <GlowingBall /> */}
       {/* <Navbar />
       <Hero />
       <About />

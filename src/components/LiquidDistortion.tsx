@@ -1,6 +1,7 @@
+"use client";
 
-import React, { useEffect, useRef } from 'react'
-import * as THREE from 'three'
+import React, { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
 
 const vertexShader = `
   varying vec2 vUv;
@@ -8,7 +9,7 @@ const vertexShader = `
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
-`
+`;
 
 const fragmentShader = `
   uniform sampler2D texture1;
@@ -28,40 +29,102 @@ const fragmentShader = `
     vec4 finalTexture = mix(_texture, _texture2, dispFactor);
     gl_FragColor = finalTexture;
   }
-`
+`;
 
 interface LiquidDistortionProps {
-  currentImage: string
-  nextImage: string
-  isTransitioning: boolean
+  currentImage: string;
+  nextImage: string;
+  isTransitioning: boolean;
+  aspectRatio?: number;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-function LiquidDistortion({ currentImage, nextImage, isTransitioning }: LiquidDistortionProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
-  const sceneRef = useRef<THREE.Scene | null>(null)
-  const cameraRef = useRef<THREE.OrthographicCamera | null>(null)
-  const materialRef = useRef<THREE.ShaderMaterial | null>(null)
-  const requestRef = useRef<number>()
+// Cache for storing aspect ratios
+const aspectRatioCache = new Map<string, number>();
+
+// Function to get image aspect ratio with caching
+const getImageAspectRatio = async (url: string): Promise<number> => {
+  // Check cache first
+  if (aspectRatioCache.has(url)) {
+    return aspectRatioCache.get(url)!;
+  }
+
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const aspectRatio = img.width / img.height;
+      // Cache the result
+      aspectRatioCache.set(url, aspectRatio);
+      resolve(aspectRatio);
+    };
+    img.onerror = () => {
+      const fallbackRatio = 16 / 9;
+      aspectRatioCache.set(url, fallbackRatio);
+      resolve(fallbackRatio);
+    };
+    img.src = url;
+  });
+};
+
+function LiquidDistortion({
+  currentImage,
+  nextImage,
+  isTransitioning,
+  aspectRatio: providedAspectRatio,
+  onMouseEnter,
+  onMouseLeave,
+}: LiquidDistortionProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
+  const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const requestRef = useRef<number>();
+  const [aspectRatio, setAspectRatio] = useState<number | null>(
+    providedAspectRatio || null
+  );
+  const [isLoading, setIsLoading] = useState(!providedAspectRatio);
+
+  // Only load aspect ratio if not provided
+  useEffect(() => {
+    if (providedAspectRatio) {
+      setAspectRatio(providedAspectRatio);
+      setIsLoading(false);
+      return;
+    }
+
+    const loadImages = async () => {
+      setIsLoading(true);
+      try {
+        const ratio = await getImageAspectRatio(currentImage);
+        setAspectRatio(ratio);
+      } catch (error) {
+        console.error("Error loading image:", error);
+        setAspectRatio(16 / 9); // Fallback ratio
+      }
+      setIsLoading(false);
+    };
+
+    loadImages();
+  }, [currentImage, providedAspectRatio]);
 
   useEffect(() => {
-    if (!containerRef.current) return
+    if (!containerRef.current || !aspectRatio || isLoading) return;
 
-    // const img = new Image();
-    // img.src = currentImage;
-    // const aspectRatio = img.naturalWidth / img.naturalHeight;
-    // // Use the parent width to determine dimensions while maintaining aspect ratio
-    // const width = containerRef.current.offsetWidth;
-    // const height = width / aspectRatio;
+    const parent = containerRef.current;
 
-    const width = containerRef.current.clientWidth
-    const height = containerRef.current.clientHeight
+    const width = parent.offsetWidth;
+    const height = width / aspectRatio;
 
-    console.log("111111")
+    // Update container height
+    parent.style.height = `${height}px`;
+
+    console.log("111111", width, height, aspectRatio);
 
     // Scene setup
-    const scene = new THREE.Scene()
-    sceneRef.current = scene
+    const scene = new THREE.Scene();
+    sceneRef.current = scene;
 
     // Camera setup
     const camera = new THREE.OrthographicCamera(
@@ -71,22 +134,22 @@ function LiquidDistortion({ currentImage, nextImage, isTransitioning }: LiquidDi
       height / -2,
       1,
       1000
-    )
-    camera.position.z = 1
-    cameraRef.current = camera
+    );
+    camera.position.z = 1;
+    cameraRef.current = camera;
 
     // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ alpha: true })
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(window.devicePixelRatio)
-    containerRef.current.appendChild(renderer.domElement)
-    rendererRef.current = renderer
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    parent.appendChild(renderer.domElement);
+    rendererRef.current = renderer;
 
     // Texture loader
-    const loader = new THREE.TextureLoader()
-    const texture1 = loader.load(currentImage)
-    const texture2 = loader.load(nextImage)
-    const disp = loader.load('https://i.postimg.cc/QNTRDRks/4.png')
+    const loader = new THREE.TextureLoader();
+    const texture1 = loader.load(currentImage);
+    const texture2 = loader.load(nextImage);
+    const disp = loader.load("https://i.postimg.cc/QNTRDRks/4.png");
 
     // Material setup
     const material = new THREE.ShaderMaterial({
@@ -97,65 +160,93 @@ function LiquidDistortion({ currentImage, nextImage, isTransitioning }: LiquidDi
         texture2: { value: texture2 },
         disp: { value: disp },
       },
-      vertexShader: vertexShader,
-      fragmentShader: fragmentShader,
+      vertexShader,
+      fragmentShader,
       transparent: true,
       opacity: 1.0,
-    })
-    materialRef.current = material
+    });
+    materialRef.current = material;
 
-    // Mesh setup
-    const geometry = new THREE.PlaneGeometry(width, height, 1, 1)
-    const mesh = new THREE.Mesh(geometry, material)
-    scene.add(mesh)
+    // Mesh setup with proper dimensions
+    const geometry = new THREE.PlaneGeometry(width, height, 1, 1);
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
 
     // Animation
     const animate = () => {
-      requestRef.current = requestAnimationFrame(animate)
-      renderer.render(scene, camera)
-    }
-    animate()
+      requestRef.current = requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    };
+    animate();
 
-    console.log("22222222")
+    // Handle window resize
+    const handleResize = () => {
+      const newWidth = parent.offsetWidth;
+      const newHeight = newWidth / aspectRatio;
+
+      parent.style.height = `${newHeight}px`;
+
+      camera.left = newWidth / -2;
+      camera.right = newWidth / 2;
+      camera.top = newHeight / 2;
+      camera.bottom = newHeight / -2;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(newWidth, newHeight);
+      mesh.scale.set(newWidth, newHeight, 1);
+    };
+
+    window.addEventListener("resize", handleResize);
 
     // Cleanup
     return () => {
-      if (containerRef.current && renderer.domElement) {
-        containerRef.current.removeChild(renderer.domElement)
+      window.removeEventListener("resize", handleResize);
+      if (parent.contains(renderer.domElement)) {
+        parent.removeChild(renderer.domElement);
       }
-      cancelAnimationFrame(requestRef.current!)
-      renderer.dispose()
-    }
-  }, [currentImage, nextImage])
+      cancelAnimationFrame(requestRef.current!);
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+    };
+  }, [currentImage, nextImage, aspectRatio, isLoading, providedAspectRatio]);
 
   useEffect(() => {
     if (isTransitioning && materialRef.current) {
-      const startTime = Date.now()
-      const duration = 1000 // 1 second transition
+      const startTime = Date.now();
+      const duration = 1000; // 1 second transition
 
       const animateTransition = () => {
-        const elapsedTime = Date.now() - startTime
-        const progress = Math.min(elapsedTime / duration, 1)
-        
+        const elapsedTime = Date.now() - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+
         if (materialRef.current) {
-          materialRef.current.uniforms.dispFactor.value = progress
+          materialRef.current.uniforms.dispFactor.value = progress;
         }
 
         if (progress < 1) {
-          requestAnimationFrame(animateTransition)
+          requestAnimationFrame(animateTransition);
         }
-      }
+      };
 
-      animateTransition()
+      animateTransition();
     }
-  }, [isTransitioning])
+  }, [isTransitioning]);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="relative flex items-center justify-center rounded-lg bg-white/5 border-[1px] border-white/20 md:p-4 w-full h-full overflow-hidden"
-    />
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+        </div>
+      )}
+    </div>
   );
-};
+}
 
 export default LiquidDistortion;

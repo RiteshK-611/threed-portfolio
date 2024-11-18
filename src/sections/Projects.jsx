@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Center, OrbitControls } from "@react-three/drei";
 
@@ -18,6 +18,7 @@ const projectCount = myProjects.length;
 const Projects = () => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const containerRef = useRef(null);
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
@@ -41,10 +42,6 @@ const Projects = () => {
   }, [selectedProjectIndex]);
 
   const currentProject = myProjects[selectedProjectIndex];
-
-  useEffect(() => {
-    <GlowingBall isHovering={isHovering} />
-  }, [isHovering])
 
   return (
     <section className="c-space my-20">
@@ -117,8 +114,10 @@ const Projects = () => {
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-pink-500 via-green-500 to-blue-500 opacity-0 blur-xl transition-all duration-500 md:group-hover:opacity-10 animate-gradient-xy" />
 
           {/* Content container with white background */}
+          <GlowingBall isHovering={isHovering} text="Explore" />
           <div
-            className="relative flex items-center justify-center rounded-lg bg-white/5 ring-1 md:p-4"
+            ref={containerRef}
+            className="relative flex items-center justify-center rounded-lg bg-white/5 border-5 border-white md:p-4"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >

@@ -314,7 +314,7 @@ const GlowingBall = ({
 
   // Physics constants
   const speed = 0.15;
-  const maxSquish = 0.5; // Maximum deformation amount
+  const maxSquish = 0.3; // Maximum deformation amount
   const squishFactor = 0.008; // How much velocity affects squishing
   const returnSpeed = 0.2; // How fast the ball returns to its original shape
 

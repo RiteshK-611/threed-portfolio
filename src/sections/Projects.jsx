@@ -3,34 +3,40 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Suspense, useState, useEffect, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Center, OrbitControls } from "@react-three/drei";
 
 import { myProjects } from "../constants/index.js";
-import CanvasLoader from "../components/Loading.jsx";
-import DemoComputer from "../components/DemoComputer.jsx";
-import { CardContainer, CardBody } from "@/components/3dCard.tsx";
-import AvatarCircles from "@/components/AvatarCircles.jsx"
+import AvatarCircles from "@/components/AvatarCircles.jsx";
 import GlowingBall from "@/components/GlowingBall.jsx";
+import LiquidDistortion from "@/components/LiquidDistortion.jsx";
 
 const projectCount = myProjects.length;
 
 const Projects = () => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
-  const containerRef = useRef(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [nextProjectIndex, setNextProjectIndex] = useState(0);
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
 
+  // const handleNavigation = (direction) => {
+  //   setSelectedProjectIndex((prevIndex) => {
+  //     if (direction === "previous") {
+  //       return prevIndex === 0 ? projectCount - 1 : prevIndex - 1;
+  //     } else {
+  //       return prevIndex === projectCount - 1 ? 0 : prevIndex + 1;
+  //     }
+  //   });
+  // };
+
   const handleNavigation = (direction) => {
-    setSelectedProjectIndex((prevIndex) => {
-      if (direction === "previous") {
-        return prevIndex === 0 ? projectCount - 1 : prevIndex - 1;
-      } else {
-        return prevIndex === projectCount - 1 ? 0 : prevIndex + 1;
-      }
-    });
+    const nextIndex = direction === 'previous'
+      ? selectedProjectIndex === 0 ? projectCount - 1 : selectedProjectIndex - 1
+      : selectedProjectIndex === projectCount - 1 ? 0 : selectedProjectIndex + 1;
+    
+    setNextProjectIndex(nextIndex);
+    setIsTransitioning(true);
   };
 
   useGSAP(() => {
@@ -41,7 +47,18 @@ const Projects = () => {
     );
   }, [selectedProjectIndex]);
 
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        setSelectedProjectIndex(nextProjectIndex);
+        setIsTransitioning(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isTransitioning, nextProjectIndex]);
+
   const currentProject = myProjects[selectedProjectIndex];
+  const nextProject = myProjects[nextProjectIndex];
 
   return (
     <section className="c-space my-20">
@@ -115,14 +132,18 @@ const Projects = () => {
 
           {/* Content container with white background */}
           <GlowingBall isHovering={isHovering} text="Explore" />
-          <div
-            ref={containerRef}
+          {/* <div
             className="relative flex items-center justify-center rounded-lg bg-white/5 border-5 border-white md:p-4"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img className="rounded-lg" src={currentProject.img} />
-          </div>
+          <img className="rounded-lg" src={currentProject.img} />
+        </div> */}
+        <LiquidDistortion
+          currentImage={currentProject.img}
+          nextImage={nextProject.img}
+          isTransitioning={isTransitioning}
+        />
         </div>
       </div>
     </section>

@@ -139,7 +139,7 @@ function LiquidDistortion({
     cameraRef.current = camera;
 
     // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     parent.appendChild(renderer.domElement);
@@ -180,20 +180,38 @@ function LiquidDistortion({
     animate();
 
     // Handle window resize
-    const handleResize = () => {
-      const newWidth = parent.offsetWidth;
-      const newHeight = newWidth / aspectRatio;
+    const handleResize = async () => {
+      if (!parent || !renderer || !camera || !mesh || !material) return;
 
-      parent.style.height = `${newHeight}px`;
+      try {
+        // Recalculate aspect ratio
+        const newAspectRatio = await getImageAspectRatio(currentImage);
+        setAspectRatio(newAspectRatio);
 
-      camera.left = newWidth / -2;
-      camera.right = newWidth / 2;
-      camera.top = newHeight / 2;
-      camera.bottom = newHeight / -2;
-      camera.updateProjectionMatrix();
+        const newWidth = parent.offsetWidth;
+        const newHeight = newWidth / newAspectRatio;
 
-      renderer.setSize(newWidth, newHeight);
-      mesh.scale.set(newWidth, newHeight, 1);
+        parent.style.height = `${newHeight}px`;
+
+        camera.left = newWidth / -2;
+        camera.right = newWidth / 2;
+        camera.top = newHeight / 2;
+        camera.bottom = newHeight / -2;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(newWidth, newHeight);
+        // renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Update mesh with proper scaling
+        mesh.geometry.dispose();
+        mesh.geometry = new THREE.PlaneGeometry(newWidth, newHeight, 1, 1);
+        // mesh.scale.set(newWidth, newHeight, 1);
+
+        // Force a re-render
+        // renderer.render(scene, camera);
+      } catch (error) {
+        console.error("Error during resize:", error);
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -209,7 +227,7 @@ function LiquidDistortion({
       material.dispose();
       renderer.dispose();
     };
-  }, [currentImage, nextImage, aspectRatio, isLoading, providedAspectRatio]);
+  }, [currentImage, nextImage, isLoading]);
 
   useEffect(() => {
     if (isTransitioning && materialRef.current) {
@@ -236,7 +254,7 @@ function LiquidDistortion({
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center justify-center rounded-lg bg-white/5 border-[1px] border-white/20 md:p-4 w-full h-full overflow-hidden"
+      className="relative flex items-center justify-center rounded-xl bg-white/5 border-[1px] border-white/20 w-full h-full lg:w-11/12 lg:h-11/12 overflow-hidden"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

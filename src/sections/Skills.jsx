@@ -9,9 +9,9 @@ const Skills = () => {
     <section className="c-space my-20 h-svh overflow-hidden relative">
       <h3 className="head-text">My Skills</h3>
 
-      {/* <div className="relative top-16 sm:top-6">
+      <div className="relative top-16 sm:top-6">
         <RotatingCircle />
-      </div> */}
+      </div>
 
       <BackgroundLines className="bg-transparent">
         <h2 className="text-2xl sm:text-3xl md:text-4xl bg-clip-text text-transparent text-center bg-gradient-to-br from-[#8964e8] to-[#25a6e9] font-semibold absolute top-1/2 left-1/2 -translate-x-1/2">

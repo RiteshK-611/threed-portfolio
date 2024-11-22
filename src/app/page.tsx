@@ -13,14 +13,14 @@ export default function App() {
   return (
     <main>
       <GlowingBall />
-      <Navbar />
+      {/* <Navbar />
       <Hero />
       <About />
-      <Skills />
+      <Skills /> */}
       <Projects />
-      <Clients />
+      {/* <Clients />
       <WorkExperience />
-      <Contact />
+      <Contact /> */}
     </main>
   );
 }

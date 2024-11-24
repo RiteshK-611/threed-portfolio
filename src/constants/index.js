@@ -89,7 +89,7 @@ export const myProjects = [
       },
       {
         id: 3,
-        name: "Typescript",
+        name: "TypeScript",
         path: "/typescript.svg",
       },
       {
@@ -104,7 +104,7 @@ export const myProjects = [
       },
       {
         id: 6,
-        name: "PgSQL",
+        name: "PostgreSQL",
         path: "/postgresql.svg",
       },
       {
@@ -142,23 +142,38 @@ export const myProjects = [
     tags: [
       {
         id: 1,
-        name: "React.js",
-        path: "/assets/react.svg",
+        name: "ReactJS",
+        path: "/react.svg",
       },
       {
         id: 2,
-        name: "TailwindCSS",
-        path: "assets/tailwindcss.png",
+        name: "JavaScript",
+        path: "/javascript.svg",
       },
       {
         id: 3,
-        name: "TypeScript",
-        path: "/assets/typescript.png",
+        name: "NodeJS",
+        path: "/nodejs.svg",
       },
       {
         id: 4,
-        name: "Framer Motion",
-        path: "/assets/framer.png",
+        name: "MongoDB",
+        path: "/mongodb.svg",
+      },
+      {
+        id: 5,
+        name: "MaterialUI",
+        path: "/mui.svg",
+      },
+      {
+        id: 6,
+        name: "Figma",
+        path: "/figma.svg",
+      },
+      {
+        id: 7,
+        name: "WebAR",
+        path: "/ar.svg",
       },
     ],
   },
@@ -182,23 +197,33 @@ export const myProjects = [
     tags: [
       {
         id: 1,
-        name: "React.js",
-        path: "/assets/react.svg",
+        name: "ReactJS",
+        path: "/react.svg",
       },
       {
         id: 2,
-        name: "TailwindCSS",
-        path: "assets/tailwindcss.png",
+        name: "JavaScript",
+        path: "/javascript.svg",
       },
       {
         id: 3,
-        name: "TypeScript",
-        path: "/assets/typescript.png",
+        name: "NodeJS",
+        path: "/nodejs.svg",
       },
       {
         id: 4,
-        name: "Framer Motion",
-        path: "/assets/framer.png",
+        name: "Firebase",
+        path: "/firebase.svg",
+      },
+      {
+        id: 5,
+        name: "MaterialUI",
+        path: "/mui.svg",
+      },
+      {
+        id: 6,
+        name: "Stripe",
+        path: "/stripe.svg",
       },
     ],
   },
@@ -220,23 +245,18 @@ export const myProjects = [
     tags: [
       {
         id: 1,
-        name: "React.js",
-        path: "/assets/react.svg",
+        name: "ReactJS",
+        path: "/react.svg",
       },
       {
         id: 2,
-        name: "TailwindCSS",
-        path: "assets/tailwindcss.png",
+        name: "JavaScript",
+        path: "/javascript.svg",
       },
       {
         id: 3,
-        name: "TypeScript",
-        path: "/assets/typescript.png",
-      },
-      {
-        id: 4,
-        name: "Framer Motion",
-        path: "/assets/framer.png",
+        name: "PWA",
+        path: "/pwa.svg",
       },
     ],
   },
@@ -258,23 +278,23 @@ export const myProjects = [
     tags: [
       {
         id: 1,
-        name: "React.js",
-        path: "/assets/react.svg",
+        name: "ReactJS",
+        path: "/react.svg",
       },
       {
         id: 2,
-        name: "TailwindCSS",
-        path: "assets/tailwindcss.png",
+        name: "NextJS",
+        path: "/next.svg",
       },
       {
         id: 3,
-        name: "TypeScript",
-        path: "/assets/typescript.png",
+        name: "JavaScript",
+        path: "/javascript.svg",
       },
       {
         id: 4,
-        name: "Framer Motion",
-        path: "/assets/framer.png",
+        name: "TailwindCSS",
+        path: "/tail.svg",
       },
     ],
   },

@@ -16,126 +16,87 @@ const Projects = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [nextProjectIndex, setNextProjectIndex] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [imageAspectRatios, setImageAspectRatios] = useState({});
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
 
-  // const handleNavigation = (direction) => {
-  //   setSelectedProjectIndex((prevIndex) => {
-  //     if (direction === "previous") {
-  //       return prevIndex === 0 ? projectCount - 1 : prevIndex - 1;
-  //     } else {
-  //       return prevIndex === projectCount - 1 ? 0 : prevIndex + 1;
-  //     }
-  //   });
-  // };
-
-  // const handleNavigation = (direction) => {
-  //   const nextIndex =
-  //     direction === "previous"
-  //       ? selectedProjectIndex === 0
-  //         ? projectCount - 1
-  //         : selectedProjectIndex - 1
-  //       : selectedProjectIndex === projectCount - 1
-  //       ? 0
-  //       : selectedProjectIndex + 1;
-
-  //   setNextProjectIndex(nextIndex);
-  //   setIsTransitioning(true);
-  // };
-
-  // useGSAP(() => {
-  //   gsap.fromTo(
-  //     `.animatedText`,
-  //     { opacity: 0 },
-  //     { opacity: 1, duration: 1, stagger: 0.2, ease: "power2.inOut" }
-  //   );
-  // }, [selectedProjectIndex]);
-
-  // useEffect(() => {
-  //   if (isTransitioning) {
-  //     const timer = setTimeout(() => {
-  //       setSelectedProjectIndex(nextProjectIndex);
-  //       setIsTransitioning(false);
-  //     }, 1000);
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [isTransitioning, nextProjectIndex]);
-
-  // const handleNavigation = (direction) => {
-  //   if (isTransitioning) return; // Prevent multiple transitions
-
-  //   const nextIndex =
-  //     direction === "previous"
-  //       ? selectedProjectIndex === 0
-  //         ? projectCount - 1
-  //         : selectedProjectIndex - 1
-  //       : selectedProjectIndex === projectCount - 1
-  //       ? 0
-  //       : selectedProjectIndex + 1;
-
-  //   setNextProjectIndex(nextIndex);
-  //   setIsTransitioning(true);
-
-  //   // Fade out current text
-  //   gsap.to(".animatedText", {
-  //     opacity: 0,
-  //     duration: 0.5,
-  //     stagger: 0.1,
-  //     onComplete: () => {
-  //       setSelectedProjectIndex(nextIndex);
-  //       // Fade in new text after content update
-  //       gsap.fromTo(
-  //         ".animatedText",
-  //         { opacity: 0 },
-  //         {
-  //           opacity: 1,
-  //           duration: 0.5,
-  //           stagger: 0.1,
-  //           delay: 0.5, // Give time for the distortion effect
-  //           onComplete: () => {
-  //             setIsTransitioning(false);
-  //           },
-  //         }
-  //       );
-  //     },
-  //   });
-  // };
-
   const handleNavigation = (direction) => {
     if (isTransitioning) return;
 
-    const nextIndex = direction === 'previous'
-      ? selectedProjectIndex === 0 ? projectCount - 1 : selectedProjectIndex - 1
-      : selectedProjectIndex === projectCount - 1 ? 0 : selectedProjectIndex + 1;
-    
+    const nextIndex =
+      direction === "previous"
+        ? selectedProjectIndex === 0
+          ? projectCount - 1
+          : selectedProjectIndex - 1
+        : selectedProjectIndex === projectCount - 1
+        ? 0
+        : selectedProjectIndex + 1;
+
     setNextProjectIndex(nextIndex);
     setIsTransitioning(true);
 
-    gsap.timeline()
-      .to('.animatedText', {
+    gsap
+      .timeline()
+      .to(".animatedText", {
         opacity: 0,
         duration: 0.3,
         stagger: 0.1,
-        ease: 'power2.inOut'
+        ease: "power2.inOut",
       })
       .call(() => {
         setSelectedProjectIndex(nextIndex);
       })
-      .fromTo('.animatedText',
+      .fromTo(
+        ".animatedText",
         { opacity: 0 },
         {
           opacity: 1,
           duration: 0.3,
           stagger: 0.1,
-          ease: 'power2.inOut',
-          delay: 0.3
+          ease: "power2.inOut",
+          delay: 0.3,
         }
       )
       .call(() => {
         setIsTransitioning(false);
       });
   };
+
+  // Preload all project images
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imageUrls = myProjects.flatMap((project) => [
+        project.img,
+        project.spotlight,
+      ]);
+      const uniqueUrls = [...new Set(imageUrls)];
+      const ratios = {};
+
+      try {
+        await Promise.all(
+          uniqueUrls.map(async (url) => {
+            new Promise((resolve) => {
+              const img = new Image();
+              img.onload = resolve;
+              img.onerror = resolve; // Still resolve on error to continue loading
+              img.src = url;
+            });
+            const ratio = await getImageAspectRatio(url);
+            ratios[url] = ratio;
+          })
+        );
+      } catch (error) {
+        console.error("Error preloading images:", error);
+      }
+
+      setImagesLoaded(true);
+      setImageAspectRatios(ratios);
+    };
+
+    preloadImages();
+  }, []);
 
   const currentProject = myProjects[selectedProjectIndex];
   const nextProject = myProjects[nextProjectIndex];
@@ -212,17 +173,14 @@ const Projects = () => {
 
           {/* Content container with white background */}
           <GlowingBall isHovering={isHovering} text="Explore" />
-          {/* <div
-            className="relative flex items-center justify-center rounded-lg bg-white/5 border-5 border-white md:p-4"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-          <img className="rounded-lg" src={currentProject.img} />
-        </div> */}
+          
           <LiquidDistortion
             currentImage={currentProject.img}
             nextImage={nextProject.img}
             isTransitioning={isTransitioning}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            // aspectRatio={imageAspectRatios[currentImage]}
           />
         </div>
       </div>

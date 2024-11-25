@@ -15,11 +15,11 @@ const AvatarCircles = ({ className, avatarUrls }) => {
           key={id}
           onMouseEnter={() => setHoveredAvatar(id)}
           onMouseLeave={() => setHoveredAvatar(null)}
-          className="relative"
+          className="relative bg-black rounded-full ring-1 ring-inset ring-white hover:ring-2 hover:-translate-x-[0.7rem] ease-linear duration-100 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
         >
           <Image
             className="p-3"
-            src={`/assets/svgs${path}`}
+            src={`/assets/skills${path}`}
             width={45}
             height={45}
             alt={name}

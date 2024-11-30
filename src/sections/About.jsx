@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Button from "@/components/Button.jsx";
 import dynamic from 'next/dynamic';
+import { motion } from "framer-motion";
 
 const Globe = dynamic(() => import('react-globe.gl'), {
   ssr: false,
@@ -21,9 +22,15 @@ const About = () => {
   };
 
   return (
-    <section className="c-space my-20" id="about">
+    <section className="c-space my-20 overflow-hidden" id="about">
       <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
-        <div className="col-span-1 xl:row-span-3">
+        <motion.div 
+          className="col-span-1 xl:row-span-3"
+          initial={{ x: "-100%", opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
           <div className="grid-container">
             <img
               src="assets/grid1.png"
@@ -40,9 +47,15 @@ const About = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="col-span-1 xl:row-span-3">
+        <motion.div 
+          className="col-span-1 xl:row-span-3"
+          initial={{ x: "-100%", opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <div className="grid-container">
             <img
               src="assets/grid2.png"
@@ -58,9 +71,15 @@ const About = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="col-span-1 xl:row-span-4">
+        <motion.div 
+          className="col-span-1 xl:row-span-4"
+          initial={{ x: "100%", opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
           <div className="grid-container">
             <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
               <Globe
@@ -94,9 +113,15 @@ const About = () => {
               <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="xl:col-span-2 xl:row-span-3">
+        <motion.div 
+          className="xl:col-span-2 xl:row-span-3"
+          initial={{ x: "-100%", opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
           <div className="grid-container">
             <img
               src="assets/grid3.png"
@@ -113,9 +138,15 @@ const About = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="xl:col-span-1 xl:row-span-2">
+        <motion.div 
+          className="xl:col-span-1 xl:row-span-2"
+          initial={{ x: "100%", opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+        >
           <div className="grid-container">
             <img
               src="assets/grid4.png"
@@ -136,7 +167,7 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

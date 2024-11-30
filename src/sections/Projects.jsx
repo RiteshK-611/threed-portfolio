@@ -169,7 +169,7 @@ const Projects = () => {
         </div>
         <div className="group relative flex items-center justify-center">
           {/* Background gradient animation container */}
-          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-pink-500 via-green-500 to-blue-500 opacity-0 blur-xl transition-all duration-500 md:group-hover:opacity-10 animate-gradient-xy" />
+          {/* <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-pink-500 via-green-500 to-blue-500 opacity-0 blur-xl transition-all duration-500 md:group-hover:opacity-10 animate-gradient-xy" /> */}
 
           {/* Content container with white background */}
           <GlowingBall isHovering={isHovering} text="Explore" />

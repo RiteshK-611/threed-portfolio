@@ -4,7 +4,7 @@ import { navLinks } from "@/constants/index.js";
 
 export default function Navbar() {
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-10 flex origin-bottom h-full max-h-14">
+    <div id="navbar" className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-10 flex origin-bottom h-full max-h-14 transition-all duration-500">
       <Dock
         magnification={60}
         distance={140}
@@ -12,9 +12,7 @@ export default function Navbar() {
       >
         {navLinks.map(({ name, href, icon }) => (
           <DockIcon key={name} magnification={60} distance={140} title={name} className="bg-white/5">
-            <Link
-              href={href}              
-            >
+            <Link href={href}>
               <img src={icon} className="size-5 text-white" />
             </Link>
           </DockIcon>

@@ -9,10 +9,11 @@ import {
 } from "framer-motion";
 import { navLinks, iconList } from "@/constants/index.js";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 
 export default function Footer() {
   const container = useRef();
-  const paths = useRef([]);
   const [showIcons, setShowIcons] = useState(false);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -45,14 +46,6 @@ export default function Footer() {
 
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (value) => {
-      paths.current.forEach((path, i) => {
-        if (path) {
-          const offset = (value + i * 0.0415) % 1;
-          path.setAttribute("keyPoints", `${offset}; ${offset}`);
-          path.setAttribute("keyTimes", "0; 1");
-        }
-      });
-
       // Control navbar visibility
       const navbar = document.getElementById("navbar");
       if (value > 0.8 && !showIcons) {
@@ -77,13 +70,71 @@ export default function Footer() {
 
   return (
     <div ref={container}>
-      <CurvePath iconList={iconList} paths={paths} />
-      <Logos scrollProgress={scrollYProgress} showIcons={showIcons} icons={icons} />
+      <CurvePath iconList={devIcons} scrollYProgress={scrollYProgress} />
+      <Logos
+        scrollProgress={scrollYProgress}
+        showIcons={showIcons}
+        icons={icons}
+      />
     </div>
   );
 }
 
-const CurvePath = ({ iconList, paths }) => {
+const CurvePath = ({ iconList, scrollYProgress }) => {
+  const iconsRef = useRef([]);
+
+  useEffect(() => {
+    gsap.registerPlugin(MotionPathPlugin);
+
+    // Set initial positions
+    iconsRef.current.forEach((icon, index) => {
+      if (icon) {
+        gsap.set(icon, {
+          x: 0,
+          y: 88.5,
+          transformOrigin: "50% 50%",
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    let animations = [];
+
+    // Create animations
+    iconsRef.current.forEach((icon, index) => {
+      if (icon) {
+        const anim = gsap.to(icon, {
+          motionPath: {
+            path: "#curve",
+            autoRotate: false,
+            useRadians: true,
+            alignOrigin: [0.5, 0.5],
+          },
+          ease: "none",
+          paused: true,
+        });
+        animations[index] = anim;
+      }
+    });
+
+    const unsubscribe = scrollYProgress.on("change", (value) => {
+      // Calculate spacing based on array length to evenly distribute icons
+      const spacing = 1 / iconsRef.current.length;
+      animations.forEach((anim, index) => {
+        if (anim) {
+          const progress = (value + index * spacing) % 1;
+          anim.progress(progress);
+        }
+      });
+    });
+
+    return () => {
+      unsubscribe();
+      animations.forEach((anim) => anim && anim.kill());
+    };
+  }, [scrollYProgress]);
+
   return (
     <svg className="w-full mb-40" viewBox="0 0 250 90">
       <defs>
@@ -91,39 +142,29 @@ const CurvePath = ({ iconList, paths }) => {
           fill="none"
           id="curve"
           d="m0,88.5c61.37,0,61.5-68,126.5-68,58,0,51,68,123,68"
+          // stroke="rgba(255,255,255,0.1)"
         />
       </defs>
-      
+
       <image
         href="/rk.png"
-        width="20"
-        height="20"
-        className="rounded-lg"
-        x="115"
+        width="40"
+        height="40"
+        className="rounded-lg absolute"
+        x="108"
         y="50"
-      >
-      </image>
+      ></image>
 
       {iconList.map((icon, index) => (
         <g key={index}>
           <image
-            href={icon[0]}
-            width="4"
-            height="4"
-            className="rounded-lg border border-white"
-          >
-            <animateMotion
-              ref={(ref) => (paths.current[index] = ref)}
-              dur="1s"
-              repeatCount="1"
-              calcMode="linear"
-              keyPoints="0; 0"
-              keyTimes="0; 1"
-              fill="freeze"
-            >
-              <mpath href="#curve" />
-            </animateMotion>
-          </image>
+            ref={(el) => (iconsRef.current[index] = el)}
+            href={icon}
+            width="10"
+            height="10"
+            className="invert"
+            style={{ position: "absolute" }}
+          />
         </g>
       ))}
     </svg>
@@ -137,43 +178,38 @@ const Logos = ({ scrollProgress, showIcons, icons }) => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   return (
     <div className="h-[250px] bg-black overflow-hidden">
       <motion.div
-        style={{ 
-          y: useTransform(
-            scrollProgress, 
-            [0, 1], 
-            [isMobile ? -100 : -700, 0]
-          ) 
+        style={{
+          y: useTransform(scrollProgress, [0, 1], [isMobile ? -100 : -700, 0]),
         }}
         className="h-full bg-black flex justify-center gap-10 items-center p-10"
       >
         <AnimatePresence mode="wait">
-          {showIcons &&
-            icons.map((link, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 50, scale: 0, opacity: 0 }}
-                animate={{ y: 0, scale: 1, opacity: 1 }}
-                exit={{ y: -50, scale: 0, opacity: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {/* <Link
+          {icons.map((link, index) => (
+            <motion.div
+              key={index}
+              initial={{ y: 50, scale: 0, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              exit={{ y: -50, scale: 0, opacity: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              {/* <Link
                   href={link}
                   className="w-[80px] h-[80px] rounded-full bg-black-300 border border-black-200 flex items-center justify-center hover:bg-black-400 transition-colors"
                 >
                 </Link> */}
-                <img src={link} alt={link} className="w-10 h-10" />
-              </motion.div>
-            ))}
+              <img src={link} alt={link} className="w-10 h-10" />
+            </motion.div>
+          ))}
         </AnimatePresence>
       </motion.div>
     </div>

@@ -1,26 +1,33 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { Suspense, useState, useEffect, useRef } from "react";
 
 import { myProjects } from "../constants/index.js";
 import AvatarCircles from "@/components/AvatarCircles.jsx";
-import GlowingBall from "@/components/GlowingBall.jsx";
 import LiquidDistortion from "@/components/LiquidDistortion.tsx";
+import { useGlowingBall } from "@/context/GlowingBallContext";
 
 const projectCount = myProjects.length;
 
 const Projects = () => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
+  const { setIsHovering, setText } = useGlowingBall();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [nextProjectIndex, setNextProjectIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [imageAspectRatios, setImageAspectRatios] = useState({});
 
-  const handleMouseEnter = () => setIsHovering(true);
-  const handleMouseLeave = () => setIsHovering(false);
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    setText("Explore");
+  };
+  
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setText("");
+  };
 
   const handleNavigation = (direction) => {
     if (isTransitioning) return;
@@ -106,7 +113,13 @@ const Projects = () => {
       <p className="head-text">My Selected Work</p>
 
       <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
-        <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
+        <motion.div
+          className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200"
+          initial={{ x: "-100%", opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <div className="absolute top-0 right-0">
             <img
               src={currentProject.spotlight}
@@ -128,11 +141,6 @@ const Projects = () => {
 
           <div className="flex items-center justify-between flex-wrap gap-5">
             <div className="flex items-center gap-3">
-              {/* {currentProject.tags.map((tag, index) => (
-                <div key={index} className="tech-logo">
-                  <img src={tag.path} alt={tag.name} />
-                </div>
-              ))} */}
               <AvatarCircles avatarUrls={currentProject.tags} />
             </div>
 
@@ -166,23 +174,22 @@ const Projects = () => {
               />
             </button>
           </div>
-        </div>
-        <div className="group relative flex items-center justify-center">
-          {/* Background gradient animation container */}
-          {/* <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-pink-500 via-green-500 to-blue-500 opacity-0 blur-xl transition-all duration-500 md:group-hover:opacity-10 animate-gradient-xy" /> */}
-
-          {/* Content container with white background */}
-          <GlowingBall isHovering={isHovering} text="Explore" />
-          
+        </motion.div>
+        <motion.div
+          className="group relative flex items-center justify-center"
+          initial={{ scale: 0, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, type: "spring", stiffness: 200 }}
+        >
           <LiquidDistortion
             currentImage={currentProject.img}
             nextImage={nextProject.img}
             isTransitioning={isTransitioning}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            // aspectRatio={imageAspectRatios[currentImage]}
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

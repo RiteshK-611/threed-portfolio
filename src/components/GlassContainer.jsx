@@ -64,3 +64,38 @@ const GlassContainer = () => {
 };
 
 export default GlassContainer;
+
+// const Particle = ({ delay }) => {
+//   const randomX = Math.random() * 300 - 150;
+//   const randomY = Math.random() * 300 - 150;
+//   const size = Math.random() * 6 + 3;
+
+//   return (
+//     <motion.div
+//       className="absolute rounded-full bg-gradient-to-br from-white to-white/40"
+//       initial={{
+//         x: 0,
+//         y: 0,
+//         opacity: 0,
+//         scale: 0,
+//       }}
+//       animate={{
+//         x: randomX,
+//         y: randomY,
+//         opacity: [0, 0.6, 0],
+//         scale: [0, 1, 0],
+//       }}
+//       transition={{
+//         duration: 4,
+//         delay: delay,
+//         repeat: Infinity,
+//         ease: "easeInOut",
+//       }}
+//       style={{
+//         width: size,
+//         height: size,
+//         boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+//       }}
+//     />
+//   );
+// };

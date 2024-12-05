@@ -24,7 +24,7 @@ const About = () => {
   return (
     <section className="c-space my-20 overflow-hidden" id="about">
       <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
-        <motion.div 
+        <motion.div
           className="col-span-1 xl:row-span-3"
           initial={{ x: "-100%", opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -32,10 +32,19 @@ const About = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
           <div className="grid-container">
-            <img
+            <motion.img
               src="assets/grid1.png"
               alt="grid-1"
               className="w-full sm:h-[276px] h-fit object-contain"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: 0.3,
+                type: "spring",
+                stiffness: 200,
+              }}
             />
 
             <div>
@@ -49,7 +58,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="col-span-1 xl:row-span-3"
           initial={{ x: "-100%", opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -57,10 +66,19 @@ const About = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="grid-container">
-            <img
+            <motion.img
               src="assets/grid2.png"
               alt="grid-2"
               className="w-full sm:h-[276px] h-fit object-contain"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: 0.2,
+                type: "spring",
+                stiffness: 200,
+              }}
             />
 
             <div>
@@ -73,7 +91,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="col-span-1 xl:row-span-4"
           initial={{ x: "100%", opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -81,7 +99,18 @@ const About = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
           <div className="grid-container">
-            <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
+            <motion.div
+              className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: 0.2,
+                type: "spring",
+                stiffness: 200,
+              }}
+            >
               <Globe
                 height={326}
                 width={326}
@@ -101,7 +130,7 @@ const About = () => {
                   },
                 ]}
               />
-            </div>
+            </motion.div>
             <div>
               <p className="grid-headtext">
                 I’m very flexible with time zone communications & locations
@@ -115,7 +144,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="xl:col-span-2 xl:row-span-3"
           initial={{ x: "-100%", opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -123,10 +152,19 @@ const About = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
           <div className="grid-container">
-            <img
+            <motion.img
               src="assets/grid3.png"
               alt="grid-3"
               className="w-full sm:h-[266px] h-fit object-contain"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: 0.3,
+                type: "spring",
+                stiffness: 200,
+              }}
             />
 
             <div>
@@ -140,7 +178,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="xl:col-span-1 xl:row-span-2"
           initial={{ x: "100%", opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -148,10 +186,19 @@ const About = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
         >
           <div className="grid-container">
-            <img
+            <motion.img
               src="assets/grid4.png"
               alt="grid-4"
               className="w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: 0.2,
+                type: "spring",
+                stiffness: 200,
+              }}
             />
 
             <div className="space-y-2">

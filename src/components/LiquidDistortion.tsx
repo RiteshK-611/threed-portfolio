@@ -254,7 +254,7 @@ function LiquidDistortion({
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center justify-center rounded-xl bg-white/5 border-[1px] border-white/20 w-full h-full lg:w-11/12 lg:h-11/12 overflow-hidden"
+      className="relative cursor-pointer flex items-center justify-center rounded-xl bg-white/5 border-[1px] border-white/20 w-full h-full lg:w-11/12 lg:h-11/12 overflow-hidden"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

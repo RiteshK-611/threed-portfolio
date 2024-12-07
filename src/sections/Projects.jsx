@@ -16,8 +16,6 @@ const Projects = () => {
   const { setIsHovering, setText } = useGlowingBall();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [nextProjectIndex, setNextProjectIndex] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [imageAspectRatios, setImageAspectRatios] = useState({});
 
   const handleMouseEnter = () => {
     setIsHovering(true);
@@ -70,40 +68,6 @@ const Projects = () => {
         setIsTransitioning(false);
       });
   };
-
-  // Preload all project images
-  useEffect(() => {
-    const preloadImages = async () => {
-      const imageUrls = myProjects.flatMap((project) => [
-        project.img,
-        project.spotlight,
-      ]);
-      const uniqueUrls = [...new Set(imageUrls)];
-      const ratios = {};
-
-      try {
-        await Promise.all(
-          uniqueUrls.map(async (url) => {
-            new Promise((resolve) => {
-              const img = new Image();
-              img.onload = resolve;
-              img.onerror = resolve; // Still resolve on error to continue loading
-              img.src = url;
-            });
-            const ratio = await getImageAspectRatio(url);
-            ratios[url] = ratio;
-          })
-        );
-      } catch (error) {
-        console.error("Error preloading images:", error);
-      }
-
-      setImagesLoaded(true);
-      setImageAspectRatios(ratios);
-    };
-
-    preloadImages();
-  }, []);
 
   const currentProject = myProjects[selectedProjectIndex];
   const nextProject = myProjects[nextProjectIndex];

@@ -8,19 +8,24 @@ import Contact from "@/sections/Contact";
 import GlowingBall from "@/components/GlowingBall";
 import Skills from "@/sections/Skills";
 import RotatingCircle from "@/components/RotatingCircle";
+import { GlowingBallProvider } from "@/context/GlowingBallContext";
+import Blogs from "@/sections/Blogs";
 
 export default function App() {
   return (
-    <main>
-      {/* <GlowingBall /> */}
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Clients />
-      <WorkExperience />
-      <Contact />
-    </main>
+    <GlowingBallProvider>
+      <main>
+        <GlowingBall />
+        <Navbar />
+        <Hero />
+        <About />
+        {/* <Skills /> */}
+        <Projects />
+        <Blogs />
+        <Clients />
+        <WorkExperience />
+        <Contact />
+      </main>
+    </GlowingBallProvider>
   );
 }

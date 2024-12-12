@@ -21,10 +21,17 @@ const BlogCard = ({ post }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
+      variants={{
+        visible: { 
+          opacity: 1, 
+          y: 0,
+          transition: {
+            type: "spring",
+            bounce: 0.4,
+          }
+        },
+        hidden: { opacity: 0, y: 50 }
+      }}
       className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
     >
       <Link href={node.url} target="_blank" rel="noopener noreferrer"
@@ -111,7 +118,23 @@ const Blogs = () => {
   return (
     <section className="c-space my-20">
       <p className="head-text">My Latest Thoughts</p>
-      <div className="mt-20 flex flex-col md:flex-row gap-8">
+      <motion.div 
+        className="mt-20 flex flex-col md:flex-row gap-8 my-5"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        variants={{
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.3
+            }
+          },
+          hidden: {
+            opacity: 0
+          }
+        }}
+      >
         {loading ? (
           <p className="text-secondary">Loading blog posts...</p>
         ) : posts.length > 0 ? (
@@ -121,7 +144,7 @@ const Blogs = () => {
         ) : (
           <p className="text-secondary">No blog posts found.</p>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

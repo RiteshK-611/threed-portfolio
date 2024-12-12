@@ -141,10 +141,10 @@ const Projects = () => {
         </motion.div>
         <motion.div
           className="group relative flex items-center justify-center"
-          initial={{ scale: 0, opacity: 0 }}
+          initial={{ scale: 0.5, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, type: "spring", stiffness: 200 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <LiquidDistortion
             currentImage={currentProject.img}

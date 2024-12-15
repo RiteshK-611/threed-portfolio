@@ -64,9 +64,8 @@ export const myProjects = [
   {
     title: "ChatPDF",
     desc: "An innovative application that enables you to interact with your PDFs. It leverages Retrieval Augmented Generation (RAG) powered by Gemini AI to generate answers directly from the PDF content. Manage multiple PDF chats, clear conversations, and start fresh whenever needed.",
-    subdesc:
-      "Built as a unique Software-as-a-Service app with Next.js 14, Tailwind CSS, TypeScript, Framer Motion and Convex, Podcastr is designed for optimal performance and scalability.",
-    href: "https://www.youtube.com/watch?v=zfAb95tJvZQ",
+    subdesc: "An advanced PDF interaction tool that allows you to generate answers directly from your documents using Gemini AI, and manage multiple chats efficiently.",
+    href: "https://chatspdf.vercel.app",
     texture: "/textures/project/project1.mp4",
     img: "/assets/projects/chatpdf.jpg",
     logo: "/assets/project-logo1.png",
@@ -127,9 +126,8 @@ export const myProjects = [
   {
     title: "InAR",
     desc: "Revolutionize your e-commerce experience with InAR, an Augmented Reality (AR) powered platform. Visualize furniture or products directly within your environment using WebAR technology. Gain a clear understanding of how these items would fit in your space before making a purchase.",
-    subdesc:
-      "With LiveDoc, users can experience the future of collaboration, where multiple contributors work together in real time without any lag, by using Next.js and Liveblocks newest features.",
-    href: "https://www.youtube.com/watch?v=y5vE8y_f_OM",
+    subdesc: "Empowers users to visualize products in their own space using AR technology, enhancing the online shopping experience.",
+    href: "https://inar-shop.vercel.app",
     texture: "/textures/project/project2.mp4",
     img: "/assets/projects/inar.jpg",
     logo: "/assets/project-logo2.png",
@@ -180,9 +178,8 @@ export const myProjects = [
   {
     title: "Amazon Clone",
     desc: "A full-fledged e-commerce application replicating the core functionalities of Amazon. It includes essential features like adding items to your cart, logging in/signing up, processing payments through the cart, and more. Enhanced user experience is achieved through features like cart pop-ups and animations.",
-    subdesc:
-      "With a focus on efficiency, CarePulse integrantes complex forms and SMS notifications, by using Next.js, Appwrite, Twillio and Sentry that enhance operational workflows.",
-    href: "https://www.youtube.com/watch?v=lEflo_sc82g",
+    subdesc: "An e-commerce platform mirroring Amazon’s core functionalities with enhanced user experience features.",
+    href: "https://amazon-shopping.vercel.app",
     texture: "/textures/project/project3.mp4",
     img: "/assets/projects/amazon.jpg",
     logo: "/assets/project-logo3.png",
@@ -230,9 +227,8 @@ export const myProjects = [
   {
     title: "City Weather",
     desc: "Stay informed about weather conditions with City Weather, a Progressive Web Application (PWA). This application retrieves weather data for your chosen city using the OpenWeather API. Access details like climate, temperature, wind speed, visibility, and air quality, all within a user-friendly interface.",
-    subdesc:
-      "Built with Next.js 14 Appwrite, Dwolla and Plaid, Horizon ensures a smooth and secure banking experience, tailored to meet the needs of modern consumers.",
-    href: "https://www.youtube.com/watch?v=PuOVqP_cjkE",
+    subdesc: "A user-friendly PWA that provides comprehensive weather data for any city using the OpenWeather API.",
+    href: "https://city-weather-report.netlify.app",
     texture: "/textures/project/project4.mp4",
     img: "/assets/projects/weather.jpg",
     logo: "/assets/project-logo4.png",
@@ -263,9 +259,8 @@ export const myProjects = [
   {
     title: "Hulu UI Clone",
     desc: "A meticulously crafted user interface (UI) replicating the landing page of the Hulu app. This project leverages TheMovieDatabase (TMDB) API to fetch movie data, enabling the display of movies from various genres. Upon hovering over a movie card, a concise overview is presented.",
-    subdesc:
-      "Built with Next.js 14, Cloudinary AI, Clerk, and Stripe, Imaginify combines cutting-edge technology with a user-centric approach. It can be turned into a side income or even a full-fledged business.",
-    href: "https://www.youtube.com/watch?v=Ahwoks_dawU",
+    subdesc: "A visually appealing UI clone of Hulu, fetching movie data using TMDB API and displaying it with rich visuals.",
+    href: "https://hulu-watch.vercel.app/",
     texture: "/textures/project/project5.mp4",
     img: "/assets/projects/hulu.jpg",
     logo: "/assets/project-logo5.png",
@@ -393,4 +388,28 @@ export const iconList = [
   ["/assets/skills/nodejs.svg", "NodeJS"],
   ["/assets/skills/postgresql.svg", "PostgreSQL"],
   ["/assets/skills/pwa.svg", "PWA"],
+];
+
+export const footerIcons = [
+  "https://api.iconify.design/tabler:triangle.svg?color=%23DF0024",
+  "https://api.iconify.design/tabler:x.svg?color=%23F3C300",
+  "https://api.iconify.design/tabler:circle.svg?color=%2300AC9F",
+  "https://api.iconify.design/tabler:square.svg?color=%232E6DB4",
+];
+
+export const devIcons = [
+  "https://api.iconify.design/tabler:code.svg",
+  "https://api.iconify.design/tabler:brand-react.svg",
+  "https://api.iconify.design/tabler:brand-javascript.svg",
+  "https://api.iconify.design/tabler:brand-typescript.svg",
+  "https://api.iconify.design/tabler:brand-nextjs.svg",
+  "https://api.iconify.design/tabler:brand-git.svg",
+  "https://api.iconify.design/tabler:code.svg",
+  "https://api.iconify.design/tabler:brand-react.svg",
+  "https://api.iconify.design/tabler:brand-javascript.svg",
+  "https://api.iconify.design/tabler:brand-typescript.svg",
+  "https://api.iconify.design/tabler:brand-nextjs.svg",
+  "https://api.iconify.design/tabler:brand-git.svg",
+  "https://api.iconify.design/tabler:code.svg",
+  "https://api.iconify.design/tabler:brand-react.svg",
 ];

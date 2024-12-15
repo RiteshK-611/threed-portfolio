@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import useAlert from "@/hooks/useAlert.js";
 import Alert from "@/components/Alert.jsx";
 import GlassContainer from "@/components/GlassContainer.jsx";
+import GTAWheelMenu from "@/components/GTAWheelMenu.jsx";
 
 const Contact = () => {
   const formRef = useRef();
@@ -158,7 +159,10 @@ const Contact = () => {
       </div>
 
       <div className="mt-20 md:mt-24 basis-1/2">
-        <GlassContainer />
+        {/* <div className="hidden lg:block">
+          <GlassContainer />
+        </div> */}
+        <GTAWheelMenu />
       </div>
     </motion.section>
   );

@@ -14,6 +14,7 @@ const GlowingBall = () => {
   const requestRef = useRef();
   const [size, setSize] = useState(10); // Ball size in pixel
   const [trailSize, setTrailSize] = useState(10); // Size of the trailing glow
+  const [isMobileOS, setIsMobileOS] = useState(false);
   const trailOpacity = 0.2; // Opacity of the trail
 
   // Physics constants
@@ -126,8 +127,15 @@ const GlowingBall = () => {
     };
   }, [isHovering]);
 
-  return (
-    <div className='relative'>
+  useEffect(() => {
+    // Detect mobile OS
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+    setIsMobileOS(isMobile);
+  }, []);
+
+  return isMobileOS ? null : (
+    <div className='relatives'>
       <div
         ref={ballRef}
         className="flex items-center justify-center"

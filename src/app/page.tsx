@@ -10,6 +10,7 @@ import Skills from "@/sections/Skills";
 import RotatingCircle from "@/components/RotatingCircle";
 import { GlowingBallProvider } from "@/context/GlowingBallContext";
 import Blogs from "@/sections/Blogs";
+import Footer from "@/sections/Footer";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
         <Clients />
         <WorkExperience />
         <Contact />
+        <Footer />
       </main>
     </GlowingBallProvider>
   );

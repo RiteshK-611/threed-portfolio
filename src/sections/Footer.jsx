@@ -193,7 +193,7 @@ const Logos = ({ scrollProgress, showIcons, icons }) => {
         }}
         className="h-full bg-black flex justify-center gap-10 items-center p-10"
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {icons.map((link, index) => (
             <motion.div
               key={index}

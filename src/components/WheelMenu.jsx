@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
+import ParticleBackground from "./Particle.jsx";
 
 const socialLinks = [
   {
@@ -24,59 +25,7 @@ const socialLinks = [
   },
 ];
 
-const Particle = ({ delay }) => {
-  const randomX = Math.random() * 200 - 100;
-  const randomY = Math.random() * 200 - 100;
-  const size = Math.random() * 8 + 4;
-  
-  return (
-    <motion.div
-      className="absolute rounded-full bg-gradient-to-br from-white to-white/60"
-      initial={{ 
-        x: 0,
-        y: 0,
-        opacity: 0,
-        scale: 0
-      }}
-      animate={{ 
-        x: randomX,
-        y: randomY,
-        opacity: [0, 0.8, 0],
-        scale: [0, 1, 0]
-      }}
-      transition={{
-        duration: 3,
-        delay: delay,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
-      style={{
-        width: size,
-        height: size,
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
-        boxShadow: "0 0 15px rgba(255, 255, 255, 0.5)"
-      }}
-    />
-  );
-};
-
-const ParticleBackground = () => {
-  return (
-    // <div className="absolute inset-0 pointer-events-none">
-    //   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px]">         
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="relative w-[200px] h-[200px]">
-        {Array.from({ length: 30 }).map((_, index) => (
-          <Particle key={index} delay={index * 0.1} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const GTAWheelMenu = () => {
+const WheelMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -146,6 +95,8 @@ const GTAWheelMenu = () => {
               const x = Math.cos((angle * Math.PI) / 180) * radius;
               const y = Math.sin((angle * Math.PI) / 180) * radius;
 
+              const isHovered = hoveredIndex === index;
+
               return (
                 <motion.a
                   key={link.name}
@@ -161,44 +112,9 @@ const GTAWheelMenu = () => {
                   }}
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
-                  whileHover={{ scale: 1.1 }}
+                  // whileHover={{ scale: 1.1 }}
                 >
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-200"
-                    style={{
-                      backgroundColor:
-                        hoveredIndex === index
-                          ? link.color
-                          : "rgba(255, 255, 255, 0.1)",
-                      boxShadow:
-                        hoveredIndex === index
-                          ? `0 0 20px ${link.color}80`
-                          : "none",
-                    }}
-                  >
-                    <img
-                      src={link.icon}
-                      alt={link.name}
-                      className="w-8 h-8"
-                      style={{
-                        filter:
-                          hoveredIndex === index
-                            ? "brightness(1)"
-                            : "brightness(0.8)",
-                      }}
-                    />
-                  </div>
-                  {hoveredIndex === index && (
-                    <motion.div
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-black/80 px-3 py-1 rounded-md pointer-events-none"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      <span className="text-white text-sm whitespace-nowrap">
-                        {link.name}
-                      </span>
-                    </motion.div>
-                  )}
+                  <Socials isSelected={isHovered} link={link} />
                 </motion.a>
               );
             })}
@@ -217,7 +133,7 @@ const GTAWheelMenu = () => {
       >
         {/* Background Elements */}
         <div className="relative">
-          <ParticleBackground />          
+          <ParticleBackground />
           <motion.div
             className="w-16 h-16 aspect-square rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center cursor-pointer text-center hover:bg-white/20 transition-colors relative z-10"
             whileTap={{ scale: 0.95 }}
@@ -264,61 +180,7 @@ const GTAWheelMenu = () => {
                         translateY: "-50%",
                       }}
                     >
-                      <motion.div
-                        className="relative"
-                        animate={{
-                          scale: isSelected ? 1.2 : 1,
-                        }}
-                      >
-                        {/* Selection indicator */}
-                        {isSelected && (
-                          <motion.div
-                            className="absolute -inset-2 border-2 border-white rounded-full"
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                          />
-                        )}
-
-                        {/* Icon container */}
-                        <div
-                          className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors duration-200 ${
-                            isSelected ? "bg-opacity-100" : "bg-white/10"
-                          }`}
-                          style={{
-                            backgroundColor: isSelected
-                              ? link.color
-                              : undefined,
-                            boxShadow: isSelected
-                              ? `0 0 20px ${link.color}80`
-                              : undefined,
-                          }}
-                        >
-                          <img
-                            src={link.icon}
-                            alt={link.name}
-                            className="w-8 h-8"
-                            style={{
-                              filter: isSelected
-                                ? "brightness(1)"
-                                : "brightness(0.8)",
-                            }}
-                          />
-                        </div>
-
-                        {/* Label */}
-                        <motion.div
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-black/80 px-3 py-1 rounded-md pointer-events-none"
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{
-                            opacity: isSelected ? 1 : 0,
-                            y: isSelected ? 0 : -10,
-                          }}
-                        >
-                          <span className="text-white text-sm whitespace-nowrap select-none">
-                            {link.name}
-                          </span>
-                        </motion.div>
-                      </motion.div>
+                      <Socials isSelected={isSelected} link={link} />
                     </motion.div>
                   );
                 })}
@@ -331,4 +193,57 @@ const GTAWheelMenu = () => {
   );
 };
 
-export default GTAWheelMenu;
+const Socials = ({ isSelected, link }) => {
+  return (
+    <motion.div
+      className="relative"
+      animate={{
+        scale: isSelected ? 1.2 : 1,
+      }}
+    >
+      {/* Selection indicator */}
+      {isSelected && (
+        <motion.div
+          className="absolute -inset-2 border-2 border-white rounded-full"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+        />
+      )}
+
+      {/* Icon container */}
+      <div
+        className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors duration-200 ${
+          isSelected ? "bg-opacity-100" : "bg-white/10"
+        }`}
+        style={{
+          backgroundColor: isSelected ? link.color : "rgba(255, 255, 255, 0.1)",
+          boxShadow: isSelected ? `0 0 20px ${link.color}80` : "none",
+        }}
+      >
+        <img
+          src={link.icon}
+          alt={link.name}
+          className="w-8 h-8"
+          style={{
+            filter: isSelected ? "brightness(1)" : "brightness(0.8)",
+          }}
+        />
+      </div>
+
+      {/* Label */}
+      {isSelected && (
+        <motion.div
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-black/80 px-3 py-1 rounded-md pointer-events-none"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <span className="text-white text-sm whitespace-nowrap select-none">
+            {link.name}
+          </span>
+        </motion.div>
+      )}
+    </motion.div>
+  );
+};
+
+export default WheelMenu;

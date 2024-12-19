@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import useAlert from "@/hooks/useAlert.js";
 import Alert from "@/components/Alert.jsx";
 import GlassContainer from "@/components/GlassContainer.jsx";
-import GTAWheelMenu from "@/components/GTAWheelMenu.jsx";
+import WheelMenu from "@/components/WheelMenu.jsx";
 
 const Contact = () => {
   const formRef = useRef();
@@ -19,6 +19,25 @@ const Contact = () => {
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({ ...form, [name]: value });
+  };
+
+  const containerVariants = {
+    hidden: {
+      x: 100,
+      rotate: -180,
+      opacity: 0,
+    },
+    visible: {
+      x: 0,
+      rotate: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 20,
+        stiffness: 100,
+        duration: 5,
+      },
+    },
   };
 
   const handleSubmit = (e) => {
@@ -70,8 +89,8 @@ const Contact = () => {
   };
 
   return (
-    <motion.section 
-      className="c-space my-20 flex flex-col lg:flex-row items-center" 
+    <motion.section
+      className="c-space my-20 flex flex-col lg:flex-row items-center"
       id="contact"
       initial={{ y: 100, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
@@ -92,8 +111,9 @@ const Contact = () => {
           >
             <h3 className="head-text">Let's talk</h3>
             <p className="text-lg text-white-600 mt-3">
-              Whether you’re looking to build a new website, improve your existing
-              platform, or bring a unique project to life, I’m here to help.
+              Whether you’re looking to build a new website, improve your
+              existing platform, or bring a unique project to life, I’m here to
+              help.
             </p>
           </motion.div>
 
@@ -162,7 +182,14 @@ const Contact = () => {
         {/* <div className="hidden lg:block">
           <GlassContainer />
         </div> */}
-        <GTAWheelMenu />
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.8 }}
+        >
+          <WheelMenu />
+        </motion.div>
       </div>
     </motion.section>
   );

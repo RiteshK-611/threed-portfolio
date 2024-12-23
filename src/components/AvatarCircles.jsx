@@ -10,9 +10,24 @@ const AvatarCircles = ({ className, avatarUrls }) => {
 
   return (
     <div className={cn("z-10 flex -space-x-3 rtl:space-x-reverse", className)}>
-      {avatarUrls.map(({ id, name, path }) => (
-        <div
+      {avatarUrls.map(({ id, name, path }, index) => (
+        <motion.div
           key={id}
+          initial={{
+            opacity: 0,
+            x: index * -20, // Start from left side
+            left: 0, // Ensure initial positioning
+          }}
+          animate={{
+            opacity: 1,
+            x: index, // Slide to original staggered position from left to right
+            left: "auto", // Reset left positioning
+          }}
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+            delay: index * 0.1, // Stagger delay based on index
+          }}
           onMouseEnter={() => setHoveredAvatar(id)}
           onMouseLeave={() => setHoveredAvatar(null)}
           className="relative bg-black rounded-full ring-1 ring-inset ring-white hover:ring-2 hover:-translate-x-[0.7rem] ease-linear duration-100 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
@@ -36,7 +51,7 @@ const AvatarCircles = ({ className, avatarUrls }) => {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

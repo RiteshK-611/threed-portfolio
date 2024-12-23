@@ -7,8 +7,6 @@ import {
   motion,
   AnimatePresence,
 } from "framer-motion";
-import { navLinks, iconList } from "@/constants/index.js";
-import Link from "next/link";
 import { gsap } from "gsap";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 
@@ -136,7 +134,7 @@ const CurvePath = ({ iconList, scrollYProgress }) => {
   }, [scrollYProgress]);
 
   return (
-    <svg className="w-full mb-40" viewBox="0 0 250 90">
+    <svg className="w-full mb-10" viewBox="0 0 260 100">
       <defs>
         <path
           fill="none"
@@ -186,12 +184,12 @@ const Logos = ({ scrollProgress, showIcons, icons }) => {
   }, []);
 
   return (
-    <div className="h-[250px] bg-black overflow-hidden">
+    <div className="h-[150px] sm:h-[200px] md:h-[250px] bg-black overflow-hidden">
       <motion.div
         style={{
-          y: useTransform(scrollProgress, [0, 1], [isMobile ? -100 : -700, 0]),
+          y: useTransform(scrollProgress, [0, 1], [isMobile ? -300 : -700, 0]),
         }}
-        className="h-full bg-black flex justify-center gap-10 items-center p-10"
+        className="h-full bg-white flex justify-center gap-10 items-center p-10"
       >
         <AnimatePresence>
           {icons.map((link, index) => (
@@ -207,7 +205,7 @@ const Logos = ({ scrollProgress, showIcons, icons }) => {
                   className="w-[80px] h-[80px] rounded-full bg-black-300 border border-black-200 flex items-center justify-center hover:bg-black-400 transition-colors"
                 >
                 </Link> */}
-              <img src={link} alt={link} className="w-10 h-10" />
+              <img src={link} alt={link} className="w-7 h-7 md:w-10 md:h-10" />
             </motion.div>
           ))}
         </AnimatePresence>

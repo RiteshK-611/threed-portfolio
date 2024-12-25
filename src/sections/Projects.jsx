@@ -105,7 +105,7 @@ const Projects = () => {
 
           <div className="flex items-center justify-between flex-wrap gap-5">
             <div className="flex items-center gap-3">
-              <AvatarCircles avatarUrls={currentProject.tags} />
+              <AvatarCircles key={selectedProjectIndex} avatarUrls={currentProject.tags} />
             </div>
 
             <a
@@ -114,7 +114,7 @@ const Projects = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <p>Check Live Site</p>
+              <p className="text-lg">Check Live Site</p>
               <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
             </a>
           </div>

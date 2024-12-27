@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useGlowingBall } from "@/context/GlowingBallContext";
 import Link from "next/link";
+import axios from "axios";
 
 const BlogCard = ({ post }) => {
   const { node } = post;
@@ -22,19 +23,22 @@ const BlogCard = ({ post }) => {
   return (
     <motion.div
       variants={{
-        visible: { 
-          opacity: 1, 
+        visible: {
+          opacity: 1,
           y: 0,
           transition: {
             type: "spring",
             bounce: 0.4,
-          }
+          },
         },
-        hidden: { opacity: 0, y: 50 }
+        hidden: { opacity: 0, y: 50 },
       }}
       className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
     >
-      <Link href={node.url} target="_blank" rel="noopener noreferrer"
+      <Link
+        href={node.url}
+        target="_blank"
+        rel="noopener noreferrer"
         className="bg-tertiary rounded-[20px] px-2 min-h-[280px] flex flex-col cursor-pointer group"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -52,9 +56,7 @@ const BlogCard = ({ post }) => {
         <p className="text-white-600 text-base mt-2 line-clamp-3">
           {node.brief}
         </p>
-        <p
-          className="mt-4 text-white-700 font-semibold self-start hover:underline flex items-center gap-2"
-        >
+        <p className="mt-4 text-white-700 font-semibold self-start hover:underline flex items-center gap-2">
           Read More{" "}
           <img
             src="/assets/right-arrow.png"
@@ -95,30 +97,46 @@ const Blogs = () => {
           }
         `;
 
-        const response = await fetch("https://gql.hashnode.com/", {
-          method: "POST",
+        const response = await axios.post("https://gql.hashnode.com/", {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ query }),
+          query: query,
         });
-
-        const data = await response.json();
-        setPosts(data.data.publication.posts.edges);
+        console.log("hashnode response", response);
+        setPosts(response.data.data.publication.posts.edges);
       } catch (error) {
-        console.error("Error fetching blog posts:", error);
+        console.error("Error fetching Hashnode posts:", error);
       } finally {
         setLoading(false);
       }
     };
 
+    const fetchDevToPosts = async () => {
+      try {
+        console.log(process.env.DEV_TO_API_KEY);
+        const response = await axios.get("/api/devto/articles/me/published", {
+          headers: {
+            Accept: "application/vnd.forem.api-v1+json",
+            "api-key": process.env.DEV_TO_API_KEY,
+          },
+        });
+
+        console.log("devto response", response);
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching Dev.to posts:", error);
+        return [];
+      }
+    };
     fetchPosts();
+    fetchDevToPosts();
   }, []);
 
   return (
     <section className="c-space my-20">
       <p className="head-text">My Latest Thoughts</p>
-      <motion.div 
+      <motion.div
         className="mt-20 flex flex-col md:flex-row gap-8 my-5"
         initial="hidden"
         whileInView="visible"
@@ -127,20 +145,18 @@ const Blogs = () => {
           visible: {
             opacity: 1,
             transition: {
-              staggerChildren: 0.3
-            }
+              staggerChildren: 0.3,
+            },
           },
           hidden: {
-            opacity: 0
-          }
+            opacity: 0,
+          },
         }}
       >
         {loading ? (
           <p className="text-secondary">Loading blog posts...</p>
         ) : posts.length > 0 ? (
-          posts.map((post) => (
-            <BlogCard key={post.node.slug} post={post} />
-          ))
+          posts.map((post) => <BlogCard key={post.node.slug} post={post} />)
         ) : (
           <p className="text-secondary">No blog posts found.</p>
         )}

@@ -145,6 +145,7 @@ const Projects = () => {
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
+          onClick={() => window.open(currentProject.href, "_blank")}
         >
           <LiquidDistortion
             currentImage={currentProject.img}

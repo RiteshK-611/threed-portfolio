@@ -50,7 +50,7 @@ const About = () => {
             <div>
               <p className="grid-headtext">Hi, I&apos;m Ritesh Kokam</p>
               <p className="grid-subtext">
-                With 12 years of experience, I have honed my skills in both
+                With 5 years of experience, I have honed my skills in both
                 frontend and backend dev, creating dynamic and responsive
                 websites.
               </p>
@@ -124,7 +124,7 @@ const About = () => {
                   {
                     lat: 40,
                     lng: -100,
-                    text: "Rjieka, Croatia",
+                    text: "Mumbai, India",
                     color: "white",
                     size: 15,
                   },
@@ -136,7 +136,7 @@ const About = () => {
                 I’m very flexible with time zone communications & locations
               </p>
               <p className="grid-subtext">
-                I&apos;m based in Rjieka, Croatia and open to remote work
+                I&apos;m based in Mumbai, India and open to remote work
                 worldwide.
               </p>
               <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
@@ -171,8 +171,11 @@ const About = () => {
               <p className="grid-headtext">My Passion for Coding</p>
               <p className="grid-subtext">
                 I love solving problems and building things through code.
-                Programming isn&apos;t just my profession—it&apos;s my passion.
+                Programming isn't just my profession—it's my passion.
                 I enjoy exploring new technologies, and enhancing my skills.
+                {/* I love solving problems and building things through code. 
+                Experimenting with new technologies and improving my skills is my passion. 
+                Every new challenge is an opportunity to learn and grow. */}
               </p>
             </div>
           </div>

@@ -1,3 +1,5 @@
+// https://blog.olivierlarose.com/tutorials/text-along-path
+
 "use client";
 
 import React, { useEffect, useRef, useState, useReducer } from "react";
@@ -9,51 +11,28 @@ import {
 } from "framer-motion";
 import { gsap } from "gsap";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
+import { devIcons, footerIcons } from "../constants";
 
 export default function Footer() {
   const container = useRef();
   const [showIcons, setShowIcons] = useState(false);
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ["start end", "end end"],
+    offset: ["start end", "end start"],
   });
-
-  const icons = [
-    "https://api.iconify.design/tabler:triangle.svg?color=%23DF0024",
-    "https://api.iconify.design/tabler:x.svg?color=%23F3C300",
-    "https://api.iconify.design/tabler:circle.svg?color=%2300AC9F",
-    "https://api.iconify.design/tabler:square.svg?color=%232E6DB4",
-  ];
-
-  const devIcons = [
-    "https://api.iconify.design/tabler:code.svg",
-    "https://api.iconify.design/tabler:brand-react.svg",
-    "https://api.iconify.design/tabler:brand-javascript.svg",
-    "https://api.iconify.design/tabler:brand-typescript.svg",
-    "https://api.iconify.design/tabler:brand-nextjs.svg",
-    "https://api.iconify.design/tabler:brand-git.svg",
-    "https://api.iconify.design/tabler:code.svg",
-    "https://api.iconify.design/tabler:brand-react.svg",
-    "https://api.iconify.design/tabler:brand-javascript.svg",
-    "https://api.iconify.design/tabler:brand-typescript.svg",
-    "https://api.iconify.design/tabler:brand-nextjs.svg",
-    "https://api.iconify.design/tabler:brand-git.svg",
-    "https://api.iconify.design/tabler:code.svg",
-    "https://api.iconify.design/tabler:brand-react.svg",
-  ];
 
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (value) => {
       // Control navbar visibility
       const navbar = document.getElementById("navbar");
-      if (value > 0.8 && !showIcons) {
+      if (value > 0.4 && !showIcons) {
         setShowIcons(true);
         if (navbar) {
           navbar.style.opacity = "0";
           navbar.style.transform = "translateY(100%)";
           navbar.style.pointerEvents = "none";
         }
-      } else if (value <= 0.8 && showIcons) {
+      } else if (value <= 0.4 && showIcons) {
         setShowIcons(false);
         if (navbar) {
           navbar.style.opacity = "1";
@@ -69,12 +48,12 @@ export default function Footer() {
   return (
     <div ref={container}>
       <CurvePath iconList={devIcons} scrollYProgress={scrollYProgress} />
-      <Logos
-        scrollProgress={scrollYProgress}
-        showIcons={showIcons}
-        icons={icons}
-      />
-    </div>
+        <Logos
+          scrollProgress={scrollYProgress}
+          showIcons={showIcons}
+          icons={footerIcons}
+        />
+      </div>
   );
 }
 
@@ -134,7 +113,7 @@ const CurvePath = ({ iconList, scrollYProgress }) => {
   }, [scrollYProgress]);
 
   return (
-    <svg className="w-full mb-10" viewBox="0 0 260 100">
+    <svg className="w-full mb-10" viewBox="0 0 256 97">
       <defs>
         <path
           fill="none"
@@ -174,7 +153,7 @@ const Logos = ({ scrollProgress, showIcons, icons }) => {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
@@ -184,12 +163,16 @@ const Logos = ({ scrollProgress, showIcons, icons }) => {
   }, []);
 
   return (
-    <div className="h-[150px] sm:h-[200px] md:h-[250px] bg-black overflow-hidden">
+    <div className="h-[150px] sm:h-[200px] md:h-[250px] overflow-hidden">
       <motion.div
         style={{
-          y: useTransform(scrollProgress, [0, 1], [isMobile ? -300 : -700, 0]),
+          y: useTransform(
+            scrollProgress,
+            [0, 1],
+            [isMobile ? -300 : -700, isMobile ? 500 : 600]
+          ),
         }}
-        className="h-full bg-white flex justify-center gap-10 items-center p-10"
+        className="h-full flex justify-center gap-10 items-center p-10"
       >
         <AnimatePresence>
           {icons.map((link, index) => (
@@ -200,11 +183,6 @@ const Logos = ({ scrollProgress, showIcons, icons }) => {
               exit={{ y: -50, scale: 0, opacity: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              {/* <Link
-                  href={link}
-                  className="w-[80px] h-[80px] rounded-full bg-black-300 border border-black-200 flex items-center justify-center hover:bg-black-400 transition-colors"
-                >
-                </Link> */}
               <img src={link} alt={link} className="w-7 h-7 md:w-10 md:h-10" />
             </motion.div>
           ))}

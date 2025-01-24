@@ -20,11 +20,8 @@ export default function App() {
         <Navbar />
         <Hero />
         <About />
-        {/* <Skills /> */}
         <Projects />
         <Blogs />
-        {/* <Clients /> */}
-        {/* <WorkExperience /> */}
         <Contact />
         <Footer />
       </main>

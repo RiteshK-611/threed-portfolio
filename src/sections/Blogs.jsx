@@ -123,7 +123,7 @@ const Blogs = () => {
         });
 
         console.log("devto response", response);
-        return response.data;
+        return response.data; // implement the logic to set post from dev.to same like hashnode
       } catch (error) {
         console.error("Error fetching Dev.to posts:", error);
         return [];

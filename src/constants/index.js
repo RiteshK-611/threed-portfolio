@@ -390,6 +390,8 @@ export const iconList = [
   ["/assets/skills/pwa.svg", "PWA"],
 ];
 
+// '#' = '%23' --- '#DF0024' = '%23DF0024'
+
 export const footerIcons = [
   "https://api.iconify.design/tabler:triangle.svg?color=%23DF0024",
   "https://api.iconify.design/tabler:x.svg?color=%23F3C300",

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-// import { Briefcase, Code, GitBranch } from "lucide-react"
+import { companyData, opensourceData, freelanceData } from "../constants";
 
 export default function WorkExperienceTree() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -37,91 +37,8 @@ export default function WorkExperienceTree() {
     };
   }, []);
 
-  const companyData = [
-    {
-      name: "Tech Innovations Inc.",
-      period: "2020 - Present",
-      role: "Senior Frontend Developer",
-      projects: [
-        {
-          title: "Customer Dashboard Redesign",
-          description:
-            "Led the redesign of the customer-facing dashboard, improving user engagement by 40%.",
-          technologies: "React, TypeScript, Tailwind CSS",
-          contributions:
-            "Architecture design, component system development, performance optimization",
-        },
-        {
-          title: "Mobile App Integration",
-          description:
-            "Integrated web services with the company's mobile application.",
-          technologies: "React Native, GraphQL, Node.js",
-          contributions:
-            "API design, state management implementation, cross-platform testing",
-        },
-      ],
-    },
-    {
-      name: "Digital Solutions Ltd.",
-      period: "2017 - 2020",
-      role: "Frontend Developer",
-      projects: [
-        {
-          title: "E-commerce Platform",
-          description:
-            "Built a scalable e-commerce platform serving over 10,000 daily users.",
-          technologies: "Vue.js, Vuex, SCSS",
-          contributions:
-            "Shopping cart implementation, checkout flow, payment gateway integration",
-        },
-      ],
-    },
-  ];
-
-  const opensourceData = {
-    statement:
-      "Active contributor to open-source projects with a focus on frontend tooling and accessibility libraries.",
-    contributions: [
-      {
-        githubUser: "reactdev",
-        repo: "react-accessible-ui",
-        repoUrl: "https://github.com/reactdev/react-accessible-ui",
-      },
-      {
-        githubUser: "cssmaster",
-        repo: "animate-lite",
-        repoUrl: "https://github.com/cssmaster/animate-lite",
-      },
-      {
-        githubUser: "webtools",
-        repo: "dev-toolkit",
-        repoUrl: "https://github.com/webtools/dev-toolkit",
-      }
-    ],
-    // Your personal GitHub info
-    personalGithub: {
-      githubUser: "riteshk-611", // Replace with your actual GitHub username
-      repoUrl: "https://github.com/riteshk-611",
-    },
-  };
-
-  const freelanceData = {
-    statement:
-      "Specialized in creating custom web solutions for small to medium businesses across various industries.",
-    projects: [
-      {
-        client: "Local Restaurant Chain",
-        work: "Developed an online ordering system with real-time kitchen notifications.",
-        skills: "Next.js, Tailwind CSS, Firebase",
-      },
-      {
-        client: "Independent Photographer",
-        work: "Created a portfolio website with custom image galleries and booking system.",
-        skills: "React, Framer Motion, Stripe",
-      },
-    ],
-  };
-// className = "relative w-full py-20 overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800";
+  
+  // className = "relative w-full py-20 overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800";
   return (
     <section className="c-space my-20" id="workexperience">
       <div className="container relative px-4 mx-auto">
@@ -153,7 +70,7 @@ export default function WorkExperienceTree() {
             </h3>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-2 items-start">
             {companyData.map((company, index) => (
               <motion.div
                 key={index}
@@ -162,7 +79,7 @@ export default function WorkExperienceTree() {
                   activeSection === "company" ? { opacity: 1, y: 0 } : {}
                 }
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200"
+                className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200 h-auto"
               >
                 <div className="mb-4 border-b border-slate-200 dark:border-slate-700 pb-4">
                   <h4 className="text-xl font-bold text-blue-800 dark:text-blue-200">
@@ -176,21 +93,38 @@ export default function WorkExperienceTree() {
                   </p>
                 </div>
 
+                {/* Project capsules row */}
+                {/* <div className="flex flex-wrap gap-2 mb-4">
+                  {company.projects.map((project, pidx) => (
+                    <div
+                      key={`capsule-${pidx}`}
+                      className="bg-blue-100 dark:bg-blue-900/30 rounded-full px-4 py-1 shadow-sm text-blue-700 dark:text-blue-300 text-sm font-medium"
+                    >
+                      {project.shortTitle || project.title}
+                    </div>
+                  ))}
+                </div> */}
+
                 <div className="space-y-4">
                   {company.projects.map((project, idx) => (
                     <div
                       key={idx}
                       className="p-4 rounded-md border-blue-200 dark:border-blue-800 bg-blue-100/70 dark:bg-blue-800/30"
                     >
-                      <h5 className="font-bold text-blue-700 dark:text-blue-300">
+                      {/* <h5 className="font-bold text-blue-700 dark:text-blue-300">
                         {project.title}
-                      </h5>
+                      </h5> */}
+                      <div className="flex items-center mb-3 bg-blue-100 dark:bg-blue-900/40 rounded-full px-4 py-1 shadow-sm max-w-fit">
+                        <span className="font-medium text-blue-700 dark:text-blue-300">
+                          {project.title}
+                        </span>
+                      </div>
                       <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         {project.description}
                       </p>
-                      <div className="mt-2">
+                      {/* <div className="mt-2">
                         <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                          Technologies:{" "}
+                          Tech:{" "}
                         </span>
                         <span className="text-xs text-slate-600 dark:text-slate-300">
                           {project.technologies}
@@ -198,12 +132,12 @@ export default function WorkExperienceTree() {
                       </div>
                       <div className="mt-1">
                         <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                          Contributions:{" "}
+                          Highlights:{" "}
                         </span>
                         <span className="text-xs text-slate-600 dark:text-slate-300">
-                          {project.contributions}
+                          {project.highlights}
                         </span>
-                      </div>
+                      </div> */}
                     </div>
                   ))}
                 </div>
@@ -295,7 +229,7 @@ export default function WorkExperienceTree() {
                       duration: 0.5,
                       delay: opensourceData.contributions.length * 0.1,
                     }}
-                    className="flex items-center bg-black rounded-full pl-1 pr-4 py-1 shadow-sm hover:shadow-md transition-shadow ml-1 border-2 border-white"
+                    className="flex items-center bg-black rounded-full pl-1 pr-4 py-1 shadow-sm hover:shadow-md transition-shadow ml-1 border border-white-700"
                   >
                     <div className="w-8 h-8 rounded-full overflow-hidden mr-2 border-2 border-white">
                       <img
@@ -367,9 +301,14 @@ export default function WorkExperienceTree() {
                     transition={{ duration: 0.5, delay: idx * 0.2 }}
                     className="p-4 bg-amber-50 rounded-md dark:bg-amber-900/20"
                   >
-                    <h5 className="font-bold text-amber-700 dark:text-amber-300">
+                    {/* <h5 className="font-bold text-amber-700 dark:text-amber-300">
                       Client: {project.client}
-                    </h5>
+                    </h5> */}
+                    <div className="flex items-center mb-3 bg-amber-100 dark:bg-amber-900/40 rounded-full px-4 py-1 shadow-sm max-w-fit">
+                      <span className="font-medium text-amber-700 dark:text-amber-300">
+                        {project.client}
+                      </span>
+                    </div>
                     <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                       {project.work}
                     </p>

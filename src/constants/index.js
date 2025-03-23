@@ -415,3 +415,90 @@ export const devIcons = [
   "https://api.iconify.design/tabler:brand-vercel.svg",
   "https://api.iconify.design/tabler:brand-github-copilot.svg",
 ];
+
+export const companyData = [
+    {
+      name: "Infosys Ltd.",
+      period: "2022 - Present",
+      role: "Digital Specialist Engineer",
+      projects: [
+        {
+          title: "Infosys Extended Reality Visualization Project",
+          shortTitle: "IXRVP",
+          description:
+            "Developed a 3D store application enhancing user visualization experience",
+          technologies: "React, Three.js, WebGL, Blender, Python, MongoDB",
+          highlights:
+            "3D modeling, WebGL optimization, virtual store environment",
+        },
+        {
+          title: "LPL Financials TIBCO to .NET Migration",
+          shortTitle: "TIBCO Migration",
+          description:
+            "Migrated TIBCO APIs to .NET, improving efficiency and reducing licensing dependency",
+          technologies:
+            "C# Web API, SQL Server, Repository Pattern, MediateR, Dapper",
+          highlights: "Reverse engineering, API development, XUnit testing",
+        },
+        {
+          title: "LPL Financials Mule to .NET Migration",
+          shortTitle: "Mule Migration",
+          description:
+            "Migrated MuleSoft APIs to .NET improving system performance",
+          technologies:
+            "C# Web API, SQL Server, Repository Pattern, MediateR, Dapper",
+          highlights:
+            "Code optimization, system architecture, testing automation",
+        },
+      ],
+    },
+  ];
+
+  export const opensourceData = {
+    statement:
+      "Active contributor to open-source projects with a focus on frontend tooling and accessibility libraries.",
+    contributions: [
+      {
+        githubUser: "simple-icons",
+        repo: "simple-icons",
+        repoUrl: "https://github.com/simple-icons/simple-icons",
+      },
+      {
+        githubUser: "codinasion-archive",
+        repo: "codinasion-monorepo",
+        repoUrl: "https://github.com/codinasion-archive/codinasion-monorepo",
+      },
+      {
+        githubUser: "codinasion",
+        repo: "codinasion",
+        repoUrl: "https://github.com/codinasion/codinasion",
+      },
+      {
+        githubUser: "dailydotdev",
+        repo: "apps",
+        repoUrl: "https://github.com/dailydotdev/apps",
+      },
+    ],
+    // Your personal GitHub info
+    personalGithub: {
+      githubUser: "riteshk-611", // Replace with your actual GitHub username
+      repoUrl: "https://github.com/riteshk-611",
+    },
+  };
+
+  export const freelanceData = {
+    statement:
+      "Specialized in creating custom web solutions for small to medium businesses across various industries.",
+    projects: [
+      {
+        client: "E-Commerce Platform - Kids' Toys Store",
+        work: "Designed and developed an online order transaction receipt system to streamline purchase confirmations and improve customer experience.",
+        skills: "Next.js, Tailwind CSS, Firebase",
+      },
+      {
+        client: "Matrimony webiste",
+        work: "Identified and removed a malicious JavaScript injection to enhance security and resolved UI issues to improve user experience.",
+        skills: "React, Framer Motion, Stripe",
+      },
+    ],
+  };

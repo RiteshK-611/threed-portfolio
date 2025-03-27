@@ -19,6 +19,12 @@ export const navLinks = [
   },
   {
     id: 4,
+    name: "Blogs",
+    href: "#blogs",
+    icon: "/assets/post.svg",
+  },
+  {
+    id: 5,
     name: "Contact",
     href: "#contact",
     icon: "/assets/contact.svg",

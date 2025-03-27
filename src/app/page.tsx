@@ -7,11 +7,13 @@ import GlowingBall from "@/components/GlowingBall";
 import { GlowingBallProvider } from "@/context/GlowingBallContext";
 import Blogs from "@/sections/Blogs";
 import Footer from "@/sections/Footer";
+import WorkExperience from "@/sections/Experience";
+import WorkExperienceTree from "@/sections/work-experience-tree";
 
 export default function App() {
   return (
     <GlowingBallProvider>
-      <main>
+      <main className="overflow-x-hidden">
         <GlowingBall />
         <Navbar />
         <Hero />
@@ -21,6 +23,7 @@ export default function App() {
         <Blogs />
         {/* <Clients /> */}
         {/* <WorkExperience /> */}
+        <WorkExperienceTree />
         <Contact />
         <Footer />
       </main>

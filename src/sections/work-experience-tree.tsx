@@ -37,14 +37,13 @@ export default function WorkExperienceTree() {
     };
   }, []);
 
-  
   // className = "relative w-full py-20 overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800";
   return (
     <section className="c-space my-20" id="workexperience">
       <div className="container relative px-4 mx-auto">
-        <h2 className="mb-16 text-4xl font-bold text-center text-slate-800 dark:text-slate-100">
+        <p className="mb-16 text-4xl font-bold text-center head-text">
           Work Experience
-        </h2>
+        </p>
 
         {/* Tree Trunk */}
         <div className="absolute left-1/2 top-32 bottom-0 w-2 bg-gradient-to-b from-red-500 to-red-700 transform -translate-x-1/2 z-0"></div>
@@ -53,10 +52,9 @@ export default function WorkExperienceTree() {
         <motion.div
           ref={sectionRefs.company}
           initial={{ opacity: 0, x: -50 }}
-          animate={activeSection === "company" ? { opacity: 1, x: 0 } : {}}
+          whileInView={activeSection === "company" ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="relative z-10 mb-24"
-        >
+          className="relative z-10 mb-24">
           <div className="flex flex-col md:flex-row items-center mb-8">
             <div className="flex items-center justify-center w-16 h-16 mb-4 md:mb-0 md:mr-4 rounded-full bg-blue-500 shadow-lg">
               <img
@@ -75,12 +73,12 @@ export default function WorkExperienceTree() {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
-                animate={
+                whileInView={
                   activeSection === "company" ? { opacity: 1, y: 0 } : {}
                 }
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200 h-auto"
-              >
+                className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200 h-auto">
                 <div className="mb-4 border-b border-slate-200 dark:border-slate-700 pb-4">
                   <h4 className="text-xl font-bold text-blue-800 dark:text-blue-200">
                     {company.name}
@@ -109,8 +107,7 @@ export default function WorkExperienceTree() {
                   {company.projects.map((project, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-md border-blue-200 dark:border-blue-800 bg-blue-100/70 dark:bg-blue-800/30"
-                    >
+                      className="p-4 rounded-md border-blue-200 dark:border-blue-800 bg-blue-100/70 dark:bg-blue-800/30">
                       {/* <h5 className="font-bold text-blue-700 dark:text-blue-300">
                         {project.title}
                       </h5> */}
@@ -153,10 +150,10 @@ export default function WorkExperienceTree() {
         <motion.div
           ref={sectionRefs.opensource}
           initial={{ opacity: 0, x: 50 }}
-          animate={activeSection === "opensource" ? { opacity: 1, x: 0 } : {}}
+          whileInView={activeSection === "opensource" ? { opacity: 1, x: 0 } : {}}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative z-10 mb-24 md:ml-auto"
-        >
+          className="relative z-10 mb-24 md:ml-auto">
           <div className="flex flex-col md:flex-row items-center mb-8 md:justify-end">
             <div className="order-first md:order-last flex items-center justify-center w-16 h-16 mb-4 md:mb-0 md:ml-4 rounded-full bg-emerald-500 shadow-lg">
               <img
@@ -173,12 +170,11 @@ export default function WorkExperienceTree() {
           <div className="max-w-2xl mx-auto md:ml-auto md:mr-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={
+              whileInView={
                 activeSection === "opensource" ? { opacity: 1, y: 0 } : {}
               }
               transition={{ duration: 0.5 }}
-              className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200"
-            >
+              className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200">
               <p className="mb-6 italic text-slate-700 dark:text-slate-300">
                 {opensourceData.statement}
               </p>
@@ -192,12 +188,11 @@ export default function WorkExperienceTree() {
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 10 }}
-                    animate={
+                    whileInView={
                       activeSection === "opensource" ? { opacity: 1, y: 0 } : {}
                     }
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="flex items-center bg-emerald-100 dark:bg-emerald-900/40 rounded-full pl-1 pr-4 py-1 shadow-sm hover:shadow-md transition-shadow"
-                  >
+                    className="flex items-center bg-emerald-100 dark:bg-emerald-900/40 rounded-full pl-1 pr-4 py-1 shadow-sm hover:shadow-md transition-shadow">
                     <div className="w-8 h-8 rounded-full overflow-hidden mr-2 border-2 border-emerald-500">
                       <img
                         src={`https://github.com/${contribution.githubUser}.png`}
@@ -222,15 +217,14 @@ export default function WorkExperienceTree() {
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 10 }}
-                    animate={
+                    whileInView={
                       activeSection === "opensource" ? { opacity: 1, y: 0 } : {}
                     }
                     transition={{
                       duration: 0.5,
                       delay: opensourceData.contributions.length * 0.1,
                     }}
-                    className="flex items-center bg-black rounded-full pl-1 pr-4 py-1 shadow-sm hover:shadow-md transition-shadow ml-1 border border-white-700"
-                  >
+                    className="flex items-center bg-black rounded-full pl-1 pr-4 py-1 shadow-sm hover:shadow-md transition-shadow ml-1 border border-white-700">
                     <div className="w-8 h-8 rounded-full overflow-hidden mr-2 border-2 border-white">
                       <img
                         src={`https://github.com/${opensourceData.personalGithub.githubUser}.png`}
@@ -260,10 +254,10 @@ export default function WorkExperienceTree() {
         <motion.div
           ref={sectionRefs.freelance}
           initial={{ opacity: 0, x: -50 }}
-          animate={activeSection === "freelance" ? { opacity: 1, x: 0 } : {}}
+          whileInView={activeSection === "freelance" ? { opacity: 1, x: 0 } : {}}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative z-10"
-        >
+          className="relative z-10">
           <div className="flex flex-col md:flex-row items-center mb-8">
             <div className="flex items-center justify-center w-16 h-16 mb-4 md:mb-0 md:mr-4 rounded-full bg-amber-500 shadow-lg">
               <img
@@ -280,12 +274,11 @@ export default function WorkExperienceTree() {
           <div className="max-w-2xl mx-auto md:mx-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={
+              whileInView={
                 activeSection === "freelance" ? { opacity: 1, y: 0 } : {}
               }
               transition={{ duration: 0.5 }}
-              className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200"
-            >
+              className="p-6 border border-black-300 rounded-lg shadow-md bg-black-200">
               <p className="mb-6 italic text-slate-700 dark:text-slate-300">
                 {freelanceData.statement}
               </p>
@@ -295,12 +288,11 @@ export default function WorkExperienceTree() {
                   <motion.div
                     key={idx}
                     initial={{ opacity: 0, y: 10 }}
-                    animate={
+                    whileInView={
                       activeSection === "freelance" ? { opacity: 1, y: 0 } : {}
                     }
                     transition={{ duration: 0.5, delay: idx * 0.2 }}
-                    className="p-4 bg-amber-50 rounded-md dark:bg-amber-900/20"
-                  >
+                    className="p-4 bg-amber-50 rounded-md dark:bg-amber-900/20">
                     {/* <h5 className="font-bold text-amber-700 dark:text-amber-300">
                       Client: {project.client}
                     </h5> */}
@@ -324,6 +316,30 @@ export default function WorkExperienceTree() {
           {/* Branch to Freelance - Hidden on mobile, visible on md and up */}
           <div className="absolute left-1/2 top-8 w-16 h-2 bg-amber-500 transform -translate-x-full hidden md:block"></div>
         </motion.div>
+
+        {/* Final Rectangle Section at the end of trunk */}
+        <div className="relative z-10 flex justify-center items-center mt-16">
+          <motion.div
+            initial={{ width: 0, height: 80, opacity: 0 }}
+            whileInView={{ width: 380, height: 80, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: "easeOut",
+            }}
+            className="absolute flex justify-center items-center mt-12">
+            <div className="absolute w-full py-6 px-9 bg-red-700 rounded-md"></div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 1.3 }}
+              className="absolute text-center text-white font-medium rounded-lg shadow-lg">
+              And many more variety of other projects.
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

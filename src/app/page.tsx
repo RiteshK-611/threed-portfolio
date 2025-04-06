@@ -8,7 +8,7 @@ import { GlowingBallProvider } from "@/context/GlowingBallContext";
 import Blogs from "@/sections/Blogs";
 import Footer from "@/sections/Footer";
 import WorkExperience from "@/sections/Experience";
-import WorkExperienceTree from "@/sections/work-experience-tree";
+import WorkExperienceTree from "@/sections/WorkExperienceTree";
 
 export default function App() {
   return (
@@ -20,10 +20,10 @@ export default function App() {
         <About />
         {/* <Skills /> */}
         <Projects />
-        <Blogs />
+        <WorkExperienceTree />
         {/* <Clients /> */}
         {/* <WorkExperience /> */}
-        <WorkExperienceTree />
+        <Blogs />
         <Contact />
         <Footer />
       </main>

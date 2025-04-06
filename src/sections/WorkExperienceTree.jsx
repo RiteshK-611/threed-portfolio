@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import { companyData, opensourceData, freelanceData } from "../constants";
 
 export default function WorkExperienceTree() {
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState(null);
   const sectionRefs = {
-    company: useRef<HTMLDivElement>(null),
-    opensource: useRef<HTMLDivElement>(null),
-    freelance: useRef<HTMLDivElement>(null),
+    company: useRef(null),
+    opensource: useRef(null),
+    freelance: useRef(null),
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function WorkExperienceTree() {
   return (
     <section className="c-space my-20" id="workexperience">
       <div className="container relative px-4 mx-auto">
-        <p className="mb-16 text-4xl font-bold text-center head-text">
+        <p className="head-text">
           Work Experience
         </p>
 
@@ -324,7 +324,7 @@ export default function WorkExperienceTree() {
             whileInView={{ width: 380, height: 80, opacity: 1 }}
             viewport={{ once: true }}
             transition={{
-              duration: 0.8,
+              duration: 0.5,
               delay: 0.5,
               ease: "easeOut",
             }}

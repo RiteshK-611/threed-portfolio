@@ -89,16 +89,12 @@ const Contact = () => {
   };
 
   return (
-    <motion.section
+    <section
       className="c-space my-20"
       id="contact"
-      initial={{ y: 100, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {alert.show && <Alert {...alert} />}
-      <p className="head-text self-auto ">Contact</p>
+      <p className="head-text pt-16">Contact</p>
       <div className="flex flex-col lg:flex-row items-center">
         <div className="relative min-h-screen flex items-center justify-center flex-col basis-1/2">
           {/* <img src="/assets/terminal.png" alt="terminal-bg" className="absolute inset-0 min-h-screen" /> */}
@@ -193,7 +189,7 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -94,7 +94,7 @@ const Blogs = () => {
 
   return (
     <section className="c-space my-20" id="blogs">
-      <p className="head-text">Latest Thoughts</p>
+      <p className="head-text pt-12">Latest Thoughts</p>
       <motion.div
         className="mt-20 flex flex-col md:flex-row gap-8 my-5"
         initial="hidden"

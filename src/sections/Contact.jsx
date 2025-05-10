@@ -94,7 +94,7 @@ const Contact = () => {
       id="contact"
     >
       {alert.show && <Alert {...alert} />}
-      <p className="head-text pt-16">Contact</p>
+      <p className="head-text">Contact</p>
       <div className="flex flex-col lg:flex-row items-center">
         <div className="relative min-h-screen flex items-center justify-center flex-col basis-1/2">
           {/* <img src="/assets/terminal.png" alt="terminal-bg" className="absolute inset-0 min-h-screen" /> */}
@@ -106,7 +106,7 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h3 className="head-text">Let's talk</h3>
+              <h3 className="text-2xl text-white-800">Let's talk</h3>
               <p className="text-lg text-white-600 mt-3">
                 Whether you’re looking to build a new website, improve your
                 existing platform, or bring a unique project to life, I’m here

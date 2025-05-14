@@ -2,31 +2,31 @@ export const navLinks = [
   {
     id: 1,
     name: "Home",
-    href: "#home",
+    href: "home",
     icon: "/assets/home.svg",
   },
   {
     id: 2,
     name: "About",
-    href: "#about",
+    href: "about",
     icon: "/assets/about.svg",
   },
   {
     id: 3,
     name: "Work",
-    href: "#work",
+    href: "work",
     icon: "/assets/work.svg",
   },
   {
     id: 4,
     name: "Blogs",
-    href: "#blogs",
+    href: "blogs",
     icon: "/assets/post.svg",
   },
   {
     id: 5,
     name: "Contact",
-    href: "#contact",
+    href: "contact",
     icon: "/assets/contact.svg",
   },
 ];

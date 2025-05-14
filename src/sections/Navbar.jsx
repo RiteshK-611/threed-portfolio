@@ -1,5 +1,6 @@
+"use client"
+
 import { Dock, DockIcon } from "@/components/Dock";
-import Link from "next/link";
 import { navLinks } from "@/constants/index.js";
 
 export default function Navbar() {
@@ -12,9 +13,9 @@ export default function Navbar() {
       >
         {navLinks.map(({ name, href, icon }) => (
           <DockIcon key={name} magnification={60} distance={140} title={name}>
-            <Link href={href}>
+            <button onClick={() => document.getElementById(href)?.scrollIntoView({ behavior: 'smooth' })}>
               <img src={icon} className="size-5 text-white" />
-            </Link>
+            </button>
           </DockIcon>
         ))}
       </Dock>

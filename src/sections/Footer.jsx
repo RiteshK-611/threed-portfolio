@@ -124,7 +124,7 @@ const CurvePath = ({ iconList, scrollYProgress }) => {
       </defs>
 
       <image
-        href="/rk.png"
+        href="/assets/rk.png"
         width="40"
         height="40"
         className="rounded-lg absolute"

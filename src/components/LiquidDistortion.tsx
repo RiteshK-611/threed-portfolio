@@ -120,8 +120,6 @@ function LiquidDistortion({
     // Update container height
     parent.style.height = `${height}px`;
 
-    console.log("111111", width, height, aspectRatio);
-
     // Scene setup
     const scene = new THREE.Scene();
     sceneRef.current = scene;

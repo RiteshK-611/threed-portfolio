@@ -80,7 +80,6 @@ const Blogs = () => {
           },
         });
 
-        console.log("devto response", response);
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching Dev.to posts:", error);

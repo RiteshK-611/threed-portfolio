@@ -499,12 +499,12 @@ export const companyData = [
       {
         client: "E-Commerce Platform - Kids' Toys Store",
         work: "Designed and developed an online order transaction receipt system to streamline purchase confirmations and improve customer experience.",
-        skills: "Next.js, Tailwind CSS, Firebase",
+        skills: "Javascript, PHP, React.js",
       },
       {
         client: "Matrimony webiste",
         work: "Identified and removed a malicious JavaScript injection to enhance security and resolved UI issues to improve user experience.",
-        skills: "React, Framer Motion, Stripe",
+        skills: "XML, Javascript, .Net",
       },
     ],
   };

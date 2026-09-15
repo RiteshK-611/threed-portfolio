@@ -27,7 +27,7 @@
     "react-globe.gl": "^2.27.2",
     "react-responsive": "^10.0.0",
     "tailwind-merge": "^2.5.4",
-    "three": "^0.168.0"
+    "three": "^0.170.0"
   },
   "devDependencies": {
     "@types/node": "^20",

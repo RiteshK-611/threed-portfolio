@@ -223,6 +223,9 @@ function LiquidDistortion({
       cancelAnimationFrame(requestRef.current!);
       geometry.dispose();
       material.dispose();
+      texture1.dispose();
+      texture2.dispose();
+      disp.dispose();
       renderer.dispose();
     };
   }, [currentImage, nextImage, isLoading]);

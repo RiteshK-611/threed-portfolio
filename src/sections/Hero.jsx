@@ -36,7 +36,10 @@ const Hero = () => {
       </div>
 
       <div className="w-full h-full absolute inset-0">
-        <Canvas className="w-full h-full">
+        <Canvas
+          className="w-full h-full"
+          dpr={[1, 1.75]}
+          gl={{ antialias: true, powerPreference: 'high-performance' }}>
           <Suspense fallback={<CanvasLoader />}>
             {/* To hide controller */}
             <Leva hidden />

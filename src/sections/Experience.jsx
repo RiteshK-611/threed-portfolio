@@ -18,7 +18,9 @@ const WorkExperience = () => {
 
         <div className="work-container">
           <div className="work-canvas">
-            <Canvas>
+            <Canvas
+              dpr={[1, 1.75]}
+              gl={{ antialias: true, powerPreference: 'high-performance' }}>
               <ambientLight intensity={7} />
               <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
               <directionalLight position={[10, 10, 10]} intensity={1} />

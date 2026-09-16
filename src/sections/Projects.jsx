@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 
@@ -16,6 +16,36 @@ const Projects = () => {
   const { setIsHovering, setText } = useGlowingBall();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [nextProjectIndex, setNextProjectIndex] = useState(0);
+  const [shouldRevealProject, setShouldRevealProject] = useState(false);
+  const sectionRef = useRef(null);
+  const textAnimation = useRef(null);
+
+  const animateText = (vars) => {
+    textAnimation.current?.kill();
+    textAnimation.current = gsap.to(
+      sectionRef.current.querySelectorAll(".animatedText"),
+      vars
+    );
+  };
+
+  useEffect(() => {
+    return () => textAnimation.current?.kill();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldRevealProject) return;
+
+    animateText({
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.06,
+      ease: "power2.out",
+      onComplete: () => {
+        setShouldRevealProject(false);
+        setIsTransitioning(false);
+      },
+    });
+  }, [selectedProjectIndex, shouldRevealProject]);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
@@ -41,39 +71,24 @@ const Projects = () => {
 
     setNextProjectIndex(nextIndex);
     setIsTransitioning(true);
+    animateText({
+      opacity: 0,
+      duration: 0.25,
+      stagger: 0.05,
+      ease: "power2.in",
+    });
+  };
 
-    gsap
-      .timeline()
-      .to(".animatedText", {
-        opacity: 0,
-        duration: 0.3,
-        stagger: 0.1,
-        ease: "power2.inOut",
-      })
-      .call(() => {
-        setSelectedProjectIndex(nextIndex);
-      })
-      .fromTo(
-        ".animatedText",
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.3,
-          stagger: 0.1,
-          ease: "power2.inOut",
-          delay: 0.3,
-        }
-      )
-      .call(() => {
-        setIsTransitioning(false);
-      });
+  const handleImageTransitionComplete = () => {
+    setSelectedProjectIndex(nextProjectIndex);
+    setShouldRevealProject(true);
   };
 
   const currentProject = myProjects[selectedProjectIndex];
   const nextProject = myProjects[nextProjectIndex];
 
   return (
-    <section className="c-space my-20" id="work">
+    <section ref={sectionRef} className="c-space my-20" id="work">
       <p className="head-text">Selected Work</p>
 
       <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
@@ -123,6 +138,8 @@ const Projects = () => {
             <button
               className="arrow-btn"
               onClick={() => handleNavigation("previous")}
+              disabled={isTransitioning}
+              aria-label="Previous project"
             >
               <img src="/assets/left-arrow.png" alt="left arrow" />
             </button>
@@ -130,6 +147,8 @@ const Projects = () => {
             <button
               className="arrow-btn"
               onClick={() => handleNavigation("next")}
+              disabled={isTransitioning}
+              aria-label="Next project"
             >
               <img
                 src="/assets/right-arrow.png"
@@ -139,22 +158,26 @@ const Projects = () => {
             </button>
           </div>
         </motion.div>
-        <motion.div
+        <motion.a
           className="group relative flex items-center justify-center"
           initial={{ scale: 0.5, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          onClick={() => window.open(currentProject.href, "_blank")}
+          href={currentProject.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Open ${currentProject.title}`}
         >
           <LiquidDistortion
             currentImage={currentProject.img}
             nextImage={nextProject.img}
             isTransitioning={isTransitioning}
+            onTransitionComplete={handleImageTransitionComplete}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           />
-        </motion.div>
+        </motion.a>
       </div>
     </section>
   );
